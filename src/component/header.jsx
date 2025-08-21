@@ -1,4 +1,5 @@
 import React from "react"; 
+import navimg from "../assets/navimg.png";
 import img from "../assets/img.png";
 import logo from "../assets/logo.png";
 import app from "../assets/appstore.png";
@@ -14,7 +15,6 @@ import button from "../assets/button.png";
 import vendor from "../assets/vendor.png";
 import com from "../assets/com.png";
 import condo from "../assets/condo.png";
-import navimg from "../assets/navimg.png";
 import bcurve from "../assets/bcurve.png";
 import bu from "../assets/b.png";
 import { Check } from "lucide-react";
@@ -37,14 +37,14 @@ export default function Header() {
             <img src={logo} alt="Logo" className="w-[140px] h-[70px] object-contain" />
             <span className="font-bold text-white text-lg whitespace-nowrap ">Property Connect</span>
           </div>
-          <nav className= "hidden lg:text-sm  lg:flex w-[1036px] h-[80px] text-6xl bg-cover xl:gap-10 xl:text:lg xl:font-bold items-center justify-center sm:text-xs sm:font-semibold md:font-bold sm:gap-5  m-0 p-0 md:gap-4 lg:gap-2 lg:pr-2 lg:pl-3 " 
+          <nav className= "hidden lg:flex lg:gap-4 lg:pr-2 lg:pl-2  md:gap-32 w-[1036px] h-[80px]  bg-cover xl:gap-10 xl:text:lg items-center justify-center     text-[clamp(12px,1.0vw,18px)] font-medium tracking-wide  " 
                style={{ backgroundImage: `url(${navimg})`, backgroundSize: '100% 100%' }}>
-            <a href="#" className="hover:text-gray-400 text-black">Home</a>
-            <a href="#" className="hover:text-gray-400 text-black">Condos & Home Owners</a>
-            <a href="#" className="hover:text-gray-400  text-black">Organizations</a>
-            <button onClick={() => navigate("/Pricing")} className="hover:text-gray-400  text-black">Pricing</button>
-            <a href="#" className="hover:text-gray-400  text-black">Customer Support</a>
-            <a href="#" className="hover:text-gray-400  text-black">About</a>
+            <button className="hover:font-bold text-black lg">Home</button>
+            <button  onClick={() => document.getElementById("condoowner").scrollIntoView({ behavior: "smooth" })} className="hover:font-bold text-black whitespace-nowrap">Condos & Home Owners</button>
+            <button   onClick={() => document.getElementById("organization").scrollIntoView({ behavior: "smooth" })} className="hover:font-bold  text-black">Organizations</button>
+            <button onClick={() => navigate("/Pricing")} className="hover:font-bold  text-black">Pricing</button>
+            <button onClick={()=> navigate("/contactus")} className="hover:font-bold  text-black whitespace-nowrap">Customer Support</button>
+            <button  onClick={()=> navigate("/contactus")} className="hover:font-bold  text-black">About</button>
           </nav>
           
  <div className="flex items-center space-x-3">
@@ -78,7 +78,7 @@ export default function Header() {
     </span>
   </span>
           <button
-            className="custom:hidden  text-white p-2"
+            className="lg:hidden  text-white p-2"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -86,13 +86,13 @@ export default function Header() {
 </div>
 
              {mobileMenuOpen && (
-          <div className=" custom:hidden 2xl:hidden absolute top-20 left-0 w-full bg-transparent text-black shadow-lg z-30 flex flex-col items-start px-6 py-4 space-y-4">
-            <a href="#" className="hover:text-gray-500">Home</a>
-            <a href="#" className="hover:text-gray-500">Condos & Home Owners</a>
-            <a href="#" className="hover:text-gray-500">Organizations</a>
-            <a href="#" className="hover:text-gray-500">Pricing</a>
-            <a href="#" className="hover:text-gray-500">Customer Support</a>
-            <a href="#" className="hover:text-gray-500">About</a>
+          <div className=" lg:hidden 2xl:hidden absolute top-20 left-0 w-full bg-transparent text-white  shadow-lg z-30 flex flex-col items-start px-6 py-7 space-y-4">
+            <a href="#" className="hover:text-black hover:font-semibold">Home</a>
+            <a href="#" className="hover:text-black hover:font-semibold">Condos & Home Owners</a>
+            <a href="#" className="hover:text-black hover:font-semibold">Organizations</a>
+            <a href="#" className="hover:text-black hover:font-semibold">Pricing</a>
+            <a href="#" className="hover:text-black hover:font-semibold">Customer Support</a>
+            <a href="#" className="hover:text-black hover:font-semibold">About</a>
             <hr className="w-full border-gray-200" />
           </div>
         )}
@@ -238,7 +238,7 @@ export default function Header() {
           </div>
 
           {/* Organizations */}
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
+          <div id="organization"className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
             <div className="relative max-w-[400px] w-full">
               <img 
                 src={com} 
@@ -271,7 +271,7 @@ export default function Header() {
           </div>
 
           {/* Home Owners */}
-          <div className="flex flex-col lg:flex-row-reverse gap-8 lg:gap-12 items-center">
+          <div id="condoowner" className="flex flex-col lg:flex-row-reverse gap-8 lg:gap-12 items-center">
             <div className="relative max-w-sm w-full">
               <img 
                 src={condo} 

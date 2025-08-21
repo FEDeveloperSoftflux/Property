@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Check, X, ArrowRight, Facebook, Twitter, Linkedin } from 'lucide-react';
 import PropertyConnectFooter from './component/Foot';
-import logo from "./assets/loginlogo.png";
-import navimg from "./assets/bluecurve.png";
+
 import { useNavigate } from 'react-router-dom';
+import Head from './head';
 export default function PricingPage() {
   const [email, setEmail] = useState('');
    const navigate = useNavigate();
@@ -47,22 +47,7 @@ export default function PricingPage() {
   return (
     <div className="min-h-screen bg-white ">
       {/* Header */}
-      <header className="bg-white text-white relative z-20 flex  md:px-12 gap-52 ">
-            <div className="mt-12">
-                       <img src={logo} alt="Logo" className="w-[140px] h-[70px] object-contain" />
-                       <span className="font-bold text-black text-lg whitespace-nowrap ">Property Connect</span>
-                     </div>
-            <nav className= "hidden pr-64 lg:text-sm  lg:flex w-[1036px] h-[80px] text-6xl bg-cover xl:gap-10 xl:text:lg xl:font-bold items-center justify-center sm:text-xs sm:font-semibold md:font-bold sm:gap-5  m-0 p-0 md:gap-4 lg:gap-2 lg:pr-2 lg:pl-3 " 
-                        style={{ backgroundImage: `url(${navimg})`, backgroundSize: '100% 100%' }}>
-                     <button onClick={()=>navigate("/")} className="hover:text-gray-400 text-white">Home</button>
-                     <button href="#" className="hover:text-gray-400 text-white">Condos & Home Owners</button>
-                     <button href="#" className="hover:text-gray-400  text-white ">Organizations</button>
-                     <button onClick={() => navigate("/Pricing")} className="hover:text-gray-400  text-white">Pricing</button>
-                     <button href="#" className="hover:text-gray-400  text-white">Customer Support</button>
-                     <button href="#" className="hover:text-gray-400  text-white">About</button>
-                   </nav>
-       
-      </header>
+     <Head/>    
 
       {/* Hero Section */}
       <section className="py-16 bg-white">
@@ -76,11 +61,11 @@ export default function PricingPage() {
       </section>
 
       {/* Pricing Cards */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
+      <section className="py-16 mt-0">
+        <div className="container mx-auto px-4 ">
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Basic Plan */}
-            <div className="bg-white border border-gray-200 rounded-lg p-8 shadow-sm relative">
+            <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm relative">
               <div className="text-center mb-8">
                 <h3 className="text-xl font-semibold mb-2">Basic Plan</h3>
                 <div className="text-5xl font-bold text-gray-900 mb-2">0</div>
@@ -95,13 +80,13 @@ export default function PricingPage() {
                 ))}
               </ul>
               
-              <button className="w-full bg-custom-blue text-white py-3 rounded-md  transition-colors font-medium mt-[299px]">
+              <button className="w-full bg-custom-blue text-white py-3 rounded-md  transition-colors font-medium lg:mt-[299px] md:mt-[334px] hover:bg-blue-700">
                 Subscribe Now
               </button>
             </div>
 
             {/* Premium Plan */}
-            <div className="bg-white border border-gray-200 rounded-lg p-8 shadow-sm">
+            <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
               <div className="text-center mb-8">
                 <h3 className="text-xl font-semibold mb-2">Premium</h3>
                 <div className="text-5xl font-bold text-gray-900 mb-2">$99</div>

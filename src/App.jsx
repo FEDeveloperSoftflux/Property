@@ -8,6 +8,8 @@ import Condo from "./dashboards/Condo";
 import AssetsManagement from "./dashboards/condopages/assest";
 import PricingPage from "./pricing";
 import ResetPassword from "./component/resetpassword";
+import FAQSection from "./contactus";
+import About from "./component/about";
 
 
 
@@ -23,6 +25,8 @@ const App = () => {
       <Route path="/assets" element={<AssetsManagement/>}/>
       <Route path="/pricing" element={<PricingPage/>}/>
      <Route path="/reset" element={<ResetPassword/>}/>
+     <Route path="/contactus" element={<FAQSection/>}/>
+     <Route path="/About" element={<About/>} />
     </Routes>
   );
 };
