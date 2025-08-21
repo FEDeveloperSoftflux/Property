@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+ font-family: "Roboto", sans-serif;
+}
+
+
+
+p{
+   font-family: 'Helvetica Now Display', sans-serif;
+  font-style: normal;
+
+}
+li{
+
+  font-weight: 400; /* or 'normal' */
+  font-style: normal;
+  font-size: 23px;
+  line-height: 36px;
+  letter-spacing: 0;
+   font-family: "Public Sans", sans-serif;
+
+}
+h3{
+
+  font-family: 'Helvetica Now Display', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 200px;
+  line-height: 100%;
+  letter-spacing: 0;
+
+}
+
