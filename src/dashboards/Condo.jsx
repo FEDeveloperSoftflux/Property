@@ -13,14 +13,15 @@ import {
   Calendar,
   User,
   AlertTriangle,
-  Bell
+  Bell,
+  TruckElectric
 } from "lucide-react";
 import logo from "../assets/Dashlogo.png"
 import bell from "../assets/bell.png"
 import Sidebar from "./Sidebar";
 export default function Condo() {
   const [activeSection, setActiveSection] = useState("Dashboard");
-
+  const [isExpanded, setIsExpanded] = useState(true);
   const sidebarItems = [
     { id: "dashboard", label: "Dashboard", icon: Home, active: true },
     { id: "assets", label: "Assets Management", icon: FolderOpen },
@@ -83,15 +84,18 @@ export default function Condo() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex ">
+    <div className=" bg-white flex border border-gray-100 border-b-0 ">
       {/* Sidebar */}
-     <Sidebar/>
+   <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
 
       {/* Main Content */}
-      <div className="ml-64 p-8">
+            <div 
+        className={`transition-all duration-300 flex-1 p-8 
+          ${isExpanded ? "ml-64" : "ml-20"}`}
+      >
         {/* Header */}
-        <div className="w-full h-24 origin-top-left  bg-white outline outline-1 outline-offset-[-0.50px] outline-black/10 flex justify-between items-center mb-6" >
-                   <h1 className="text-3xl font-bold text-gray-900 ml-6">Dashboard<br/> <p className="justify-start text-black/50 text-base font-normal font-['Helvetica_Now_Display']">Welcome back! </p></h1> 
+        <div className="w-full h-24 origin-top-left border-b border-gray-100 bg-white flex justify-between items-center mb-6" >
+                   <h1 className="text-4xl font-bold text-gray-900 ml-6">Dashboard<br/> <p className="justify-start text-black text-base font-semibold font-['Helvetica_Now_Display']">Welcome back! </p></h1> 
                   
                <div className="flex gap-2">
               <button className="w-10 h-10 rounded-full bg-slate-100 flex justify-center items-center"> <img src={bell} className="w-5 h-5 bg-cover"/></button> 
@@ -127,50 +131,50 @@ export default function Condo() {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-3 gap-6 mb-8">
-          <div className="bg-white p-6 rounded-lg shadow">
+          <div className="bg-white p-6 rounded-3xl shadow h-48">
             <div className="flex justify-between items-start">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Total Projects</h3>
-                <div className="text-3xl font-bold text-gray-900">14</div>
+                <div className="text-3xl font-bold text-gray-900 mt-14">14</div>
                 <div className="text-sm text-gray-600">+2 last month</div>
               </div>
-              <div className="bg-blue-100 p-2 rounded-lg">
+              <div className="bg-white border border-gray-100 p-2 rounded-xl">
                 <FileText className="w-6 h-6 text-custom-blue" />
               </div>
             </div>
           </div>
           
-          <div className="bg-custom-blue  p-6 rounded-lg  text-white shadow-xl">
+          <div className="bg-custom-blue  p-6 rounded-3xl  text-white shadow-xl">
             <div className="flex justify-between items-start">
               <div>
                 <h3 className="text-lg font-semibold mb-2">Completed Projects</h3>
-                <div className="text-3xl font-bold">128</div>
+                <div className="text-3xl font-bold mt-14">128</div>
                 <div className="text-sm text-blue-200">+8 last month</div>
               </div>
-              <div className="bg-white bg-opacity-20 p-2 rounded-lg">
-                <FileText className="w-6 h-6 text-white" />
+              <div className="bg-white border border-gray-100 p-2 rounded-xl">
+                <FileText className="w-6 h-6 text-custom-blue" />
               </div>
             </div>
           </div>
           
-          <div className="bg-white p-6 rounded-lg shadow">
+          <div className="bg-white p-6 rounded-3xl shadow">
             <div className="flex justify-between items-start">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">On-Going Projects</h3>
-                <div className="text-3xl font-bold text-gray-900">48</div>
+                <div className="text-3xl font-bold text-gray-900 mt-14">48</div>
                 <div className="text-sm text-gray-600">+4 last month</div>
               </div>
-              <div className="bg-blue-100 p-2 rounded-lg">
+              <div className="bg-white border border-gray-100 p-2 rounded-xl">
                 <AlertTriangle className="w-6 h-6 text-custom-blue" />
               </div>
             </div>
           </div>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-3 rounded-3xl bg-white">
           {/* Activity Log */}
           <div className="bg-white rounded-3xl shadow w-full ">
-            <div className="flex justify-between items-center p-6 border-b bg-blue-50/50">
+            <div className="flex justify-between rounded-t-3xl items-center p-6 border-b bg-blue-800/5">
               <h3 className="text-lg font-semibold text-gray-900">Activity Log</h3>
               <button className="text-custom-blue hover:text-blue-800 text-sm w-20 h-9 bg-white rounded-[10px] border border-blue-800">View All</button>
             </div>
@@ -203,8 +207,8 @@ export default function Condo() {
 
           {/* Recent Requests */}
           <div className="bg-white rounded-3xl shadow">
-            <div className="flex justify-between items-center p-6 border-b bg-blue-50/50">
-              <h3 className="text-lg font-semibold text-gray-900 ">Recent Requests</h3>
+            <div className="flex justify-between rounded-t-3xl  items-center p-6 border-b  bg-blue-800/5">
+              <h3 className="text-lg font-semibold rounded-3xl  text-gray-900 ">Recent Requests</h3>
               <button className="text-custom-blue hover:text-blue-800 text-sm w-20 h-9 bg-white rounded-[10px] border border-blue-800">View All</button>
             </div>
             <div className="p-6">
@@ -244,8 +248,8 @@ export default function Condo() {
 
         {/* Recent Activity */}
         <div className="mt-8 bg-white rounded-3xl shadow">
-          <div className="flex justify-between items-center p-6 border-b bg-blue-50/50">
-            <h3 className="text-lg font-semibold text-gray-900">Recent Activity</h3>
+          <div className="flex justify-between rounded-t-3xl  items-center p-6 border-b  bg-blue-800/5">
+            <h3 className="text-lg font-semibold  text-gray-900">Recent Activity</h3>
             <button className="text-custom-blue hover:text-blue-800 text-sm w-20 h-9 bg-white rounded-[10px] border border-blue-800">View All</button>
           </div>
          <div className="p-6">

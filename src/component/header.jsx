@@ -22,8 +22,25 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Login from "./Login"
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 export default function Header() {
  const navigate = useNavigate();
+ const location = useLocation();
+
+useEffect(() => {
+  if (location.hash) {
+    const id = location.hash.replace("#", "");
+    const el = document.getElementById(id);
+    if (el) {
+      setTimeout(() => {
+        el.scrollIntoView({ behavior: "smooth" });
+      }, 300);
+    }
+  }
+}, [location]);
+  
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);  return (
     <>
       <div className="relative min-h-screen overflow-hidden">
@@ -40,11 +57,11 @@ export default function Header() {
           <nav className= "hidden lg:flex lg:gap-4 lg:pr-2 lg:pl-2  md:gap-32 w-[1036px] h-[80px]  bg-cover xl:gap-10 xl:text:lg items-center justify-center     text-[clamp(12px,1.0vw,18px)] font-medium tracking-wide  " 
                style={{ backgroundImage: `url(${navimg})`, backgroundSize: '100% 100%' }}>
             <button className="hover:font-bold text-black lg">Home</button>
-            <button  onClick={() => document.getElementById("condoowner").scrollIntoView({ behavior: "smooth" })} className="hover:font-bold text-black whitespace-nowrap">Condos & Home Owners</button>
+            <button  onClick={() => navigate("/#condoowner")} className="hover:font-bold text-black whitespace-nowrap">Condos & Home Owners</button>
             <button   onClick={() => document.getElementById("organization").scrollIntoView({ behavior: "smooth" })} className="hover:font-bold  text-black">Organizations</button>
             <button onClick={() => navigate("/Pricing")} className="hover:font-bold  text-black">Pricing</button>
             <button onClick={()=> navigate("/contactus")} className="hover:font-bold  text-black whitespace-nowrap">Customer Support</button>
-            <button  onClick={()=> navigate("/contactus")} className="hover:font-bold  text-black">About</button>
+            <button  onClick={()=> navigate("/about")} className="hover:font-bold  text-black">About</button>
           </nav>
           
  <div className="flex items-center space-x-3">
@@ -86,7 +103,7 @@ export default function Header() {
 </div>
 
              {mobileMenuOpen && (
-          <div className=" lg:hidden 2xl:hidden absolute top-20 left-0 w-full bg-transparent text-white  shadow-lg z-30 flex flex-col items-start px-6 py-7 space-y-4">
+          <div className=" lg:hidden 2xl:hidden absolute top-20 left-0 w-full backdrop-blur-sm text-white  shadow-lg z-30 flex flex-col items-start px-6 py-7 space-y-4">
             <a href="#" className="hover:text-black hover:font-semibold">Home</a>
             <a href="#" className="hover:text-black hover:font-semibold">Condos & Home Owners</a>
             <a href="#" className="hover:text-black hover:font-semibold">Organizations</a>

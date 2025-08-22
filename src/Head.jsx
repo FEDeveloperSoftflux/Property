@@ -24,8 +24,11 @@ function Head() {
           style={{ backgroundImage: `url(${navimg})`, backgroundSize: '100% 100%' }}
         >
           <button onClick={() => navigate("/")} className="hover:text-black hover:font-bold text-white">Home</button>
-          <button className="hover:text-black hover:font-bold text-white">Condos & Home Owners</button>
-          <button className="hover:text-black hover:font-bold text-white">Organizations</button>
+          <button   onClick={() => {  navigate("/#condoowner"); toggleMenu(); }}className="hover:text-black hover:font-bold text-white">Condos & Home Owners</button>
+          <button  onClick={() => { 
+    navigate("/#organization"); 
+    toggleMenu(); 
+  }}  className="hover:text-black hover:font-bold text-white">Organizations</button>
           <button onClick={() => navigate("/Pricing")} className="hover:text-black hover:font-bold text-white">Pricing</button>
           <button onClick={()=> navigate("/contactus")} className="hover:text-black hover:font-bold text-white">Customer Support</button>
           <button onClick={()=> navigate('/about')} className="hover:text-black hover:font-bold text-white">About</button>
@@ -41,12 +44,13 @@ function Head() {
       {/* Mobile Menu Dropdown */}
       {isOpen && (
         <div className="absolute top-[80px] right-0 w-3/4 bg-white shadow-lg rounded-xl p-6 flex flex-col gap-4 lg:hidden">
-          <button onClick={() => { navigate("/"); toggleMenu(); }} className="text-black hover:text-gray-600">Home</button>
-          <button className="text-black hover:text-gray-600">Condos & Home Owners</button>
-          <button className="text-black hover:text-gray-600">Organizations</button>
-          <button onClick={() => { navigate("/Pricing"); toggleMenu(); }} className="text-black hover:text-gray-600">Pricing</button>
-          <button className="text-black hover:text-gray-600">Customer Support</button>
-          <button onClick={()=> navigate('/about')}className="text-black hover:text-gray-600">About</button>
+     <button onClick={() => { navigate("/"); setMobileMenuOpen(false); }} className="hover:text-black hover:font-semibold">Home</button>
+<button onClick={() => { navigate("/#condoowner"); setMobileMenuOpen(false); }} className="hover:text-black hover:font-semibold">Condos & Home Owners</button>
+<button onClick={() => { navigate("/#organization"); setMobileMenuOpen(false); }} className="hover:text-black hover:font-semibold">Organizations</button>
+<button onClick={() => { navigate("/Pricing"); setMobileMenuOpen(false); }} className="hover:text-black hover:font-semibold">Pricing</button>
+<button onClick={() => { navigate("/contactus"); setMobileMenuOpen(false); }} className="hover:text-black hover:font-semibold">Customer Support</button>
+<button onClick={() => { navigate("/about"); setMobileMenuOpen(false); }} className="hover:text-black hover:font-semibold">About</button>
+
         </div>
       )}
     </header>

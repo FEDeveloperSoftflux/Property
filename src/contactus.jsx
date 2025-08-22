@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ChevronRight, X, Send, MessageCircle, Facebook, Twitter, Linkedin } from 'lucide-react';
 import PropertyConnectFooter from './component/Foot';
 import Head from './head';
-
+import contactus from './assets/contactus.png';
 export default function FAQSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [email, setEmail] = useState('');
@@ -50,12 +50,12 @@ export default function FAQSection() {
 
           <div className="space-y-1">
             {faqs.map((faq, index) => (
-              <div key={index} className="bg-neutral-50  hover:bg-white border border-gray-200 rounded-lg overflow-hidden">
+              <div key={index} className="bg-neutral-50  hover:bg-custom-blue hover:text-white border border-gray-200 rounded-lg group">
                 <button
-                  className="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors duration-200"
+                  className="w-full flex items-center justify-between p-6 text-left hover:bg-custom-blue hover:text-white transition-colors duration-200"
                   onClick={() => setExpandedFAQ(expandedFAQ === index ? null : index)}
                 >
-                  <span className="text-lg font-medium text-gray-900">{faq}</span>
+                  <span className="text-lg font-medium text-gray-900 group-hover:text-white ">{faq}</span>
                   <ChevronRight
                     className={`w-5 h-5 text-gray-500 transform transition-transform duration-200 ${
                       expandedFAQ === index ? 'rotate-90' : ''
@@ -78,9 +78,9 @@ export default function FAQSection() {
       {/* Floating Chat Button */}
       <button
         onClick={() => setIsModalOpen(true)}
-        className="fixed bottom-8 right-8 w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group z-50"
+        className="fixed bottom-8 right-8 w-14 h-14 bg-custom-blue hover:bg-blue-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group z-50"
       >
-        <MessageCircle className="w-6 h-6 group-hover:scale-110 transition-transform duration-200" />
+      <img src={contactus} />
       </button>
 
 <PropertyConnectFooter/>
@@ -113,7 +113,7 @@ export default function FAQSection() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter Email"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-custom-blue focus:border-custom-blue outline-none transition-all duration-200"
                   />
                 </div>
 
@@ -132,7 +132,7 @@ export default function FAQSection() {
 
                 <button
                   onClick={handleSubmit}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-medium flex items-center justify-center space-x-2 transition-all duration-200 hover:shadow-lg"
+                  className="w-full bg-custom-blue hover:bg-custom-blue text-white py-3 px-6 rounded-lg font-medium flex items-center justify-center space-x-2 transition-all duration-200 hover:shadow-lg"
                 >
                   <Send className="w-4 h-4" />
                   <span>Send</span>

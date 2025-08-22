@@ -10,6 +10,7 @@ import PricingPage from "./pricing";
 import ResetPassword from "./component/resetpassword";
 import FAQSection from "./contactus";
 import About from "./component/about";
+import ProjectManagementDashboard from "./dashboards/condopages/projectmanagment";
 
 
 
@@ -27,6 +28,7 @@ const App = () => {
      <Route path="/reset" element={<ResetPassword/>}/>
      <Route path="/contactus" element={<FAQSection/>}/>
      <Route path="/About" element={<About/>} />
+   <Route path="/projectmanagement" element={<ProjectManagementDashboard/>}/>
     </Routes>
   );
 };

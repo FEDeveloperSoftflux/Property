@@ -82,22 +82,24 @@ export default function AssetsManagement() {
         : [...prev, assetId]
     );
   };
-
+    
   const toggleAllAssets = () => {
+    
     if (selectedAssets.length === assetsData.length) {
       setSelectedAssets([]);
     } else {
       setSelectedAssets(assetsData.map(asset => asset.id));
     }
   };
-
+const [isExpanded, setIsExpanded] = useState(true);
   return (
     <div className="min-h-screen bg-gray-50 flex relative">
       {/* Sidebar */}
-      <Sidebar className="fixed" />
+ <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
 
       {/* Main Content */}
-      <div className="flex-1 ml-60 bg-gray-50">
+      <div  className={`transition-all bg-white duration-300 flex-1 p-8 
+          ${isExpanded ? "ml-64" : "ml-20"}`}>
         
         {/* Header */}
         <div className="bg-white border-b border-gray-100 px-8 py-4 flex justify-between items-center">
@@ -120,17 +122,17 @@ export default function AssetsManagement() {
             </button>
           </div>
 
-          {/* ✅ Modal Mount */}
+          {/*Modal Mount */}
           {isModalOpen && (
             <AssetManagementModal 
               onClose={() => setIsModalOpen(false)} 
               onSubmit={handleAddAsset} 
             />
           )}
-
+{/*-- Stats Cards */}
   <div className="grid grid-cols-4 gap-6 mb-8">
             {/* Total Assets */}
-            <div className="bg-white p-6 rounded-3xl border border-gray-200 hover:shadow-lg hover:bg-custom-blue group">
+            <div className="bg-white p-6 rounded-3xl border border-gray-200 hover:shadow-xl hover:bg-custom-blue group h-48">
               <div className="flex justify-between items-start">
                 <div>
                   <p className="text-sm font-semibold text-gray-700 mb-4 group-hover:text-white">Total Assets</p>
