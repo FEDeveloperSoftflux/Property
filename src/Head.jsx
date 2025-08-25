@@ -7,53 +7,75 @@ import { useNavigate } from "react-router-dom";
 function Head() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-
+       const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <header className="bg-white text-white relative md:px-12 ">
-      {/* Desktop Nav */}
-         <div className="lg:hidden mr-6 absolute top-4 right-4 z-50">
-        <button onClick={toggleMenu} className="text-black">
-          {isOpen ? <X size={32} /> : <Menu size={32} />}
+  <header className="relative z-20 flex justify-between px-6 md:px-12 py-0">
+                <div className="flex flex-col items-center">
+                  <img src={logo} alt="Logo" className="w-[140px] h-[70px] object-contain" />
+                  <span className="font-bold text-white text-lg whitespace-nowrap ">Property Connect</span>
+                </div>
+                <nav className= "hidden lg:text-sm lg:flex w-[900px] h-[60px] bg-cover xl:gap-10 xl:text-sm items-center justify-center sm:text-xs sm:font-semibold md:font-thin md:gap-6 lg:gap-3 sm:gap-5 md:text-sm lg:pr-4 lg:pl-4     text-[clamp(12px,1.0vw,18px)] font-medium tracking-wide  " 
+                     style={{ backgroundImage: `url(${navimg})`, backgroundSize: '100% 100%' }}>
+                  <button onClick={() => navigate("/")} className="hover:font-bold text-white lg">Home</button>
+                  <button  onClick={() => navigate("/#condoowner")} className="hover:font-bold text-white whitespace-nowrap">Condos & Home Owners</button>
+                  <button   onClick={() => navigate("/#organization")} className="hover:font-bold  text-white">Organizations</button>
+                  <button onClick={() => navigate("/Pricing")} className="hover:font-bold  text-white">Pricing</button>
+                  <button onClick={()=> navigate("/contactus")} className="hover:font-bold  text-white whitespace-nowrap">Customer Support</button>
+                  <button  onClick={()=> navigate("/about")} className="hover:font-bold  text-white">About</button>
+                </nav>
+                
+       <div className="flex items-center space-x-3">
+        {/* Login Button */}
+        <button className="border border-black bg-transparent text-custom-blue px-4 hover:font-bold rounded-full text-sm h-10 hover:bg-custom-blue hover:text-white transition-all" onClick={() => navigate("/Login")}>
+          Login
         </button>
+      
+        {/* Sign Up Button */}
+        <span className="relative flex items-center rounded-full border border-black overflow-hidden group h-10 ">
+          {/* Text section */}
+          <button className="px-6 text-custom-blue font-medium text-sm transition-all duration-300 group-hover:text-white group-hover:font-bold  hover:bg-custom-blue border border-black rounded-full h-10 flex justify-center items-center whitespace-nowrap"  onClick={()=> navigate("/signin")} >
+            Sign up
+          </button>
+      
+          {/* Arrow section */}
+          <span className="w-0 group-hover:w-12 flex items-center justify-center transition-all duration-300 ease-in-out">
+            <svg
+              className="w-5 h-5 text-black"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+          </span>
+        </span>
+                <button
+                  className="lg:hidden  text-white p-2"
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                >
+                  {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+                </button>      
       </div>
-      <div className="hidden lg:flex justify-center lg:mr-[140px] lg:ml-[140px]">
-        <nav
-          className="lg:text-sm lg:flex w-[900px] h-[60px] bg-cover xl:gap-10 xl:text-sm items-center justify-center sm:text-xs sm:font-semibold md:font-thin md:gap-6 lg:gap-3 sm:gap-5 md:text-sm lg:pr-4 lg:pl-4"
-          style={{ backgroundImage: `url(${navimg})`, backgroundSize: '100% 100%' }}
-        >
-          <button onClick={() => navigate("/")} className="hover:text-black hover:font-bold text-white">Home</button>
-          <button   onClick={() => {  navigate("/#condoowner"); toggleMenu(); }}className="hover:text-black hover:font-bold text-white">Condos & Home Owners</button>
-          <button  onClick={() => { 
-    navigate("/#organization"); 
-    toggleMenu(); 
-  }}  className="hover:text-black hover:font-bold text-white">Organizations</button>
-          <button onClick={() => navigate("/Pricing")} className="hover:text-black hover:font-bold text-white">Pricing</button>
-          <button onClick={()=> navigate("/contactus")} className="hover:text-black hover:font-bold text-white">Customer Support</button>
-          <button onClick={()=> navigate('/about')} className="hover:text-black hover:font-bold text-white">About</button>
-        </nav>
-      </div>
-
-      {/* Mobile Hamburger */}
-   
-          <div className="flex flex-col ml-4 md:ml-12  lg:ml-6 xl:ml-16">
-        <img src={logo} alt="Logo" className="w-[140px] h-[70px] object-contain" />
-        <span className="font-bold text-black text-lg whitespace-nowrap ">Property Connect</span>
-      </div>
-      {/* Mobile Menu Dropdown */}
-      {isOpen && (
-        <div className="absolute top-[80px] right-0 w-3/4 bg-white shadow-lg rounded-xl p-6 flex flex-col gap-4 lg:hidden">
-     <button onClick={() => { navigate("/"); setMobileMenuOpen(false); }} className="hover:text-black hover:font-semibold">Home</button>
-<button onClick={() => { navigate("/#condoowner"); setMobileMenuOpen(false); }} className="hover:text-black hover:font-semibold">Condos & Home Owners</button>
-<button onClick={() => { navigate("/#organization"); setMobileMenuOpen(false); }} className="hover:text-black hover:font-semibold">Organizations</button>
-<button onClick={() => { navigate("/Pricing"); setMobileMenuOpen(false); }} className="hover:text-black hover:font-semibold">Pricing</button>
-<button onClick={() => { navigate("/contactus"); setMobileMenuOpen(false); }} className="hover:text-black hover:font-semibold">Customer Support</button>
-<button onClick={() => { navigate("/about"); setMobileMenuOpen(false); }} className="hover:text-black hover:font-semibold">About</button>
-
-        </div>
-      )}
-    </header>
+      
+                   {mobileMenuOpen && (
+                <div className=" lg:hidden 2xl:hidden absolute top-20 left-0 w-full backdrop-blur-sm text-white  shadow-lg z-30 flex flex-col items-start px-6 py-7 space-y-4">
+                  <a href="#" className="hover:text-black hover:font-semibold">Home</a>
+                  <a href="#" className="hover:text-black hover:font-semibold">Condos & Home Owners</a>
+                  <a href="#" className="hover:text-black hover:font-semibold">Organizations</a>
+                  <a href="#" className="hover:text-black hover:font-semibold">Pricing</a>
+                  <a href="#" className="hover:text-black hover:font-semibold">Customer Support</a>
+                  <a href="#" className="hover:text-black hover:font-semibold">About</a>
+                  <hr className="w-full border-gray-200" />
+                </div>
+              )}
+              </header>
   );
 }
 

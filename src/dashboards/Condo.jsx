@@ -19,6 +19,7 @@ import {
 import logo from "../assets/Dashlogo.png"
 import bell from "../assets/bell.png"
 import Sidebar from "./Sidebar";
+import Header from "./condopages/Dashboardheader";
 export default function Condo() {
   const [activeSection, setActiveSection] = useState("Dashboard");
   const [isExpanded, setIsExpanded] = useState(true);
@@ -94,14 +95,7 @@ export default function Condo() {
           ${isExpanded ? "ml-64" : "ml-20"}`}
       >
         {/* Header */}
-        <div className="w-full h-24 origin-top-left border-b border-gray-100 bg-white flex justify-between items-center mb-6" >
-                   <h1 className="text-4xl font-bold text-gray-900 ml-6">Dashboard<br/> <p className="justify-start text-black text-base font-semibold font-['Helvetica_Now_Display']">Welcome back! </p></h1> 
-                  
-               <div className="flex gap-2">
-              <button className="w-10 h-10 rounded-full bg-slate-100 flex justify-center items-center"> <img src={bell} className="w-5 h-5 bg-cover"/></button> 
-                <img src={logo} className="w-10 h-10 flex items-center mr-6"/>
-                </div> 
-                 </div>
+      <Header title="Dashboard" subtitle="welcome back!" />
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 ml-6"></h1>

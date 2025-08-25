@@ -18,7 +18,7 @@ export default function Sidebar({ active, setActive, isExpanded, setIsExpanded }
     { id: "dashboard", label: "Dashboard", icon: <Home className="w-5 h-5 mr-2" />, onClick: () =>{navigate("/Condo");} },
     { id: "assets", label: "Assets Management", icon: <FolderOpen className="w-5 h-5 mr-2" />, onClick: () => { navigate("/assets"); } },
     { id: "projects", label: "Project Management", icon: <FileText className="w-5 h-5 mr-2" />, onClick: () => navigate("/projectmanagement") },
-    { id: "vendors", label: "Vendors Management", icon: <Users className="w-5 h-5 mr-2" />, onClick: () => setActive("vendors") },
+    { id: "vendors", label: "Vendors Management", icon: <Users className="w-5 h-5 mr-2" />, onClick: () => navigate("/vendormanagement") },
     { id: "messages", label: "Messages", icon: <MessageSquare className="w-5 h-5 mr-2" />, onClick: () => setActive("messages") },
     { id: "reports", label: "Reports", icon: <FileText className="w-5 h-5 mr-2" />, onClick: () => setActive("reports") },
   ]
@@ -31,11 +31,12 @@ export default function Sidebar({ active, setActive, isExpanded, setIsExpanded }
     >
       {/* Logo + Toggle */}
     <div>
-      <div className="flex items-center justify-between p-4">
-        {isExpanded && (
-          <div className="flex items-center gap-2 pl-3" onClick={() => navigate("/")}>
-            <img src={nlogo} alt="logo" className="w-32 h-auto " />
-     
+      <div className="flex items-center justify-between p-6">
+      {isExpanded && (
+         <div className=""> <div className="flex flex-col items-center gap-2 ">
+            <img src={nlogo} alt="logo" className="w-32 h-auto " />   
+            <span className=" font-bold text-xl  mt-0 whitespace-nowrap">Propert Connect</span>   
+          </div>
           </div>
         )}
         <button
@@ -44,7 +45,8 @@ export default function Sidebar({ active, setActive, isExpanded, setIsExpanded }
         >
           {isExpanded ? <ChevronLeft /> : <ChevronRight />}
         </button>
-      </div>
+      </div> 
+
 
       </div>
 
@@ -57,7 +59,7 @@ export default function Sidebar({ active, setActive, isExpanded, setIsExpanded }
         className={`flex items-center gap-3 py-3 px-4 rounded-2xl w-full transition-colors
           ${active === item.id
            ? 'bg-custom-blue text-white '
-                      : 'text-gray-600 hover:bg-blue-50 hover:text-custom-blue hover:text-white  hover:scale-102 hover:shadow-sm '}`
+                      : 'text-gray-600 hover:z-50 hover:bg-custom-blue hover:text-white  hover:scale-102 hover:shadow-sm '}`
           
           }
       >

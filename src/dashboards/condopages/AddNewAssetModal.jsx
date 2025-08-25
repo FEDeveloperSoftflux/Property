@@ -6,10 +6,11 @@ export default function AssetManagementModal({ onClose, onSubmit }) {
     assetName: '',
     assetType: '',
     condition: '',
-    date: '01/21/2024',
+    date: '', // ISO format for <input type="date" />
     location: '',
     serialNumber: '',
-    details: ''
+    details: '',
+    photos: [] // Added for uploaded files
   });
 
   const assetTypes = ['HVAC', 'Electrical', 'Elevator', 'Plumbing'];
@@ -22,6 +23,14 @@ export default function AssetManagementModal({ onClose, onSubmit }) {
     }));
   };
 
+  const handleFileUpload = (event) => {
+    const files = Array.from(event.target.files);
+    setFormData(prev => ({
+      ...prev,
+      photos: [...prev.photos, ...files]
+    }));
+  };
+
   const handleSubmit = () => {
     if (!formData.assetName || !formData.assetType || !formData.condition) {
       alert("Please fill all required fields");
@@ -31,9 +40,9 @@ export default function AssetManagementModal({ onClose, onSubmit }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-end z-50">
-      <div className="h-full w-full max-w-2xl bg-white backdrop-blur overflow-y-auto rounded-l-3xl">
-        
+    <div className="fixed inset-0 bg-black bg-opacity-30  backdrop-blur flex justify-end z-50">
+      <div className="h-full w-full max-w-4xl bg-white backdrop-blur overflow-y-auto rounded-l-3xl">
+
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <h2 className="text-xl font-semibold text-gray-900">Add New Asset</h2>
@@ -46,7 +55,7 @@ export default function AssetManagementModal({ onClose, onSubmit }) {
         <div className="p-6">
           <h3 className="text-lg font-medium text-gray-900 mb-6">Asset Details</h3>
           <div className="space-y-6">
-            
+
             {/* Row 1 */}
             <div className="grid grid-cols-2 gap-6">
               <div>
@@ -56,7 +65,7 @@ export default function AssetManagementModal({ onClose, onSubmit }) {
                   placeholder="Enter Asset Name"
                   value={formData.assetName}
                   onChange={(e) => handleInputChange('assetName', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-custom-blue"
                 />
               </div>
 
@@ -66,7 +75,7 @@ export default function AssetManagementModal({ onClose, onSubmit }) {
                   <select
                     value={formData.assetType}
                     onChange={(e) => handleInputChange('assetType', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white text-gray-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-custom-blue appearance-none bg-white text-gray-500"
                   >
                     <option value="">Select Type</option>
                     {assetTypes.map(type => (
@@ -100,7 +109,7 @@ export default function AssetManagementModal({ onClose, onSubmit }) {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Date</label>
                 <input
-                  type="text"
+                  type="date"
                   value={formData.date}
                   onChange={(e) => handleInputChange('date', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
@@ -150,18 +159,44 @@ export default function AssetManagementModal({ onClose, onSubmit }) {
               <div className="w-12 h-12 mx-auto mb-4 bg-gray-200 rounded-full flex items-center justify-center">
                 <Upload className="h-6 w-6 text-gray-400" />
               </div>
-              <p className="text-sm font-medium text-gray-900 mb-1">Upload location Image</p>
+              <label htmlFor="file-upload" className="cursor-pointer text-sm font-medium text-gray-900 mb-1 inline-block">
+                Upload Location Image
+              </label>
+              <input
+                id="file-upload"
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleFileUpload}
+                className="hidden"
+              />
               <p className="text-xs text-gray-500">(Optional, but recommended)</p>
+
+              {/* Show uploaded file names */}
+              {formData.photos.length > 0 && (
+                <ul className="mt-4 text-sm text-gray-600 text-left list-disc list-inside">
+                  {formData.photos.map((file, idx) => (
+                    <li key={idx}>{file.name}</li>
+                  ))}
+                </ul>
+              )}
             </div>
+
           </div>
         </div>
 
         {/* Footer Buttons */}
         <div className="flex justify-end space-x-3 p-6 border-t border-gray-200 bg-gray-50">
-          <button onClick={onClose} className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 font-medium">
+          <button
+            onClick={onClose}
+            className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 font-medium"
+          >
             Go Back
           </button>
-          <button onClick={handleSubmit} className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-medium">
+          <button
+            onClick={handleSubmit}
+            className="px-6 py-2 bg-custom-blue text-white rounded-md hover:bg-blue-700 font-medium"
+          >
             Next
           </button>
         </div>

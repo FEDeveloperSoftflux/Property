@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "../Sidebar";
 import logo from "../../assets/Dashlogo.png";
 import AssetManagementModal from "../condopages/AddNewAssetModal";
-
+import AssetPreviewModal from "../condopages/PreviewAsset";
+import Header from "./Dashboardheader";
 export default function AssetsManagement() {
   const [selectedAssets, setSelectedAssets] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -50,7 +51,7 @@ export default function AssetsManagement() {
       default: return 'bg-gray-100 text-gray-600 border-gray-200';
     }
   };
-
+  const [previewAsset, setPreviewAsset] = useState(null);
   const handleAddAsset = (newAsset) => {
     const newId = `A${String(assetsData.length + 1).padStart(3, "0")}`;
     const createdAt = new Date().toLocaleDateString("en-US", {
@@ -74,6 +75,31 @@ export default function AssetsManagement() {
     setAssetsData(prev => [assetToAdd, ...prev]); // ✅ Add on top
     setIsModalOpen(false);
   };
+  
+  () => {
+    const newId = `A${String(assetsData.length + 1).padStart(3, "0")}`;
+    const createdAt = new Date().toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric"
+    });
+ 
+    const assetToAdd = {
+      id: newId,
+      createdAt,
+      name: newAsset.assetName,
+      type: newAsset.assetType,
+      category: newAsset.assetType === "HVAC" ? "Mechanical" : 
+                newAsset.assetType === "Elevator" ? "Transportation" : 
+                newAsset.assetType === "Electrical" ? "Power" : "General",
+      location: newAsset.location,
+      status: newAsset.condition
+    };
+
+    setAssetsData(prev => [assetToAdd, ...prev]); // ✅ Add on top
+    setIsModalOpen(false);
+  };
+
 
   const toggleAssetSelection = (assetId) => {
     setSelectedAssets(prev => 
@@ -102,10 +128,7 @@ const [isExpanded, setIsExpanded] = useState(true);
           ${isExpanded ? "ml-64" : "ml-20"}`}>
         
         {/* Header */}
-        <div className="bg-white border-b border-gray-100 px-8 py-4 flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-gray-900">Assets Management</h1>
-          <img src={logo} className="w-10 h-10 mr-6" />
-        </div>
+    <Header title="Assets Management"  />
 
         <div className="p-8">
           {/* Section Header */}
@@ -129,10 +152,17 @@ const [isExpanded, setIsExpanded] = useState(true);
               onSubmit={handleAddAsset} 
             />
           )}
+            {previewAsset && (
+            <AssetPreviewModal
+              asset={previewAsset}
+              onClose={() => setPreviewAsset(null)}
+            />
+          )}
+
 {/*-- Stats Cards */}
   <div className="grid grid-cols-4 gap-6 mb-8">
             {/* Total Assets */}
-            <div className="bg-white p-6 rounded-3xl border border-gray-200 hover:shadow-xl hover:bg-custom-blue group h-48">
+            <div className="bg-white p-6 rounded-3xl border border-gray-200 hover:shadow-xl hover:bg-custom-blue group h-40">
               <div className="flex justify-between items-start">
                 <div>
                   <p className="text-sm font-semibold text-gray-700 mb-4 group-hover:text-white">Total Assets</p>
@@ -186,7 +216,8 @@ const [isExpanded, setIsExpanded] = useState(true);
 
           {/* Filters */}
           <div className="flex space-x-4 mb-6">
-            <div className="flex-1 max-w-xs relative">
+            <div className="flex-1 w-60
+             relative">
               <Search className="w-4 h-4 absolute left-3 top-3 text-gray-400" />
               <input
                 type="text"
@@ -275,7 +306,7 @@ const [isExpanded, setIsExpanded] = useState(true);
                   </div>
                 </div>
                 <div className="flex space-x-2 w-20">
-                  <Eye className="w-4 h-4 text-gray-400 hover:text-blue-600 cursor-pointer" />
+                  <Eye className="w-4 h-4 text-gray-400 hover:text-blue-600 cursor-pointer"   onClick={() => setPreviewAsset(asset)}  />
                   <Edit className="w-4 h-4 text-gray-400 hover:text-blue-600 cursor-pointer" />
                   <Trash2 className="w-4 h-4 text-gray-400 hover:text-red-600 cursor-pointer" />
                 </div>
