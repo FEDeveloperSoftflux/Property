@@ -222,7 +222,7 @@ export default function ProjectManagementDashboard() {
       
       {/* Main Content */}
       <div className={`transition-all duration-300 flex-1 p-8 
-          ${isExpanded ? "ml-64" : "ml-20"}`}>
+          ${isExpanded ? "ml-60" : "ml-20"}`}>
         
   <Header title="Project Management" />
 
@@ -290,12 +290,12 @@ export default function ProjectManagementDashboard() {
                 placeholder="Search by Project ID, Title, or Vendor..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-3xl focus:outline-none focus:ring-2 focus:ring-custom-blue"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-custom-blue"
               />
             </div>
             <button 
               onClick={() => setShowFilters(!showFilters)}
-              className={`flex items-center gap-2 px-4 py-2 border rounded-3xl transition-colors relative
+              className={`flex items-center gap-2 px-4 py-2 border rounded-xl transition-colors relative
                 ${showFilters ? 'bg-custom-blue text-white border-custom-blue' : 'border-gray-300 hover:bg-gray-50'}
               `}
             >
@@ -390,7 +390,7 @@ export default function ProjectManagementDashboard() {
           <div className="bg-white rounded-3xl border border-gray-200 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-50 border-b border-gray-200">
+                <thead className="bg-blue-800/5 border-b border-gray-200">
                   <tr>
                     <th className="text-left py-3 px-4 font-medium text-gray-700">ID</th>
                     <th className="text-left py-3 px-4 font-medium text-gray-700">Title</th>

@@ -17,10 +17,10 @@ export default function Sidebar({ active, setActive, isExpanded, setIsExpanded }
   const menuItems = [
     { id: "dashboard", label: "Dashboard", icon: <Home className="w-5 h-5 mr-2" />, onClick: () =>{navigate("/Condo");} },
     { id: "assets", label: "Assets Management", icon: <FolderOpen className="w-5 h-5 mr-2" />, onClick: () => { navigate("/assets"); } },
-    { id: "projects", label: "Project Management", icon: <FileText className="w-5 h-5 mr-2" />, onClick: () => navigate("/projectmanagement") },
+    { id: "projects", label: "Project Management", icon: <FileText className="w-5 h-5 mr-2" />, onClick: () => { navigate("/projectmanagement"); } },
     { id: "vendors", label: "Vendors Management", icon: <Users className="w-5 h-5 mr-2" />, onClick: () => navigate("/vendormanagement") },
-    { id: "messages", label: "Messages", icon: <MessageSquare className="w-5 h-5 mr-2" />, onClick: () => setActive("messages") },
-    { id: "reports", label: "Reports", icon: <FileText className="w-5 h-5 mr-2" />, onClick: () => setActive("reports") },
+    { id: "messages", label: "Messages", icon: <MessageSquare className="w-5 h-5 mr-2" />, onClick: () => setActive("message") },
+    { id: "reports", label: "Reports", icon: <FileText className="w-5 h-5 mr-2" />, onClick: () => navigate("/report") },
   ]
 
   return (

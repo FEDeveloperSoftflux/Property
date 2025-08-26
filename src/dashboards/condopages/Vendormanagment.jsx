@@ -3,7 +3,7 @@ import { Search, MessageCircle, User, Star, MapPin, Code, Users, BarChart3, Mess
 import Sidebar from '../Sidebar';
 import Header from './Dashboardheader';
 
-const Vendor = () => {
+export default function Vendor() {
   const [activeFilter, setActiveFilter] = useState('All Types');
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -262,4 +262,3 @@ const Vendor = () => {
   );
 };
 
-export default Vendor;

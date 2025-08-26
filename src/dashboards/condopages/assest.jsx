@@ -125,7 +125,7 @@ const [isExpanded, setIsExpanded] = useState(true);
 
       {/* Main Content */}
       <div  className={`transition-all bg-white duration-300 flex-1 p-8 
-          ${isExpanded ? "ml-64" : "ml-20"}`}>
+          ${isExpanded ? "ml-56" : "ml-20"}`}>
         
         {/* Header */}
     <Header title="Assets Management"  />
@@ -261,7 +261,7 @@ const [isExpanded, setIsExpanded] = useState(true);
           {/* Assets Table */}
           <div className="bg-white rounded-3xl border border-gray-100 overflow-hidden">
             {/* Table Header */}
-            <div className="bg-blue-50/50 px-6 py-4 border-b border-gray-100">
+            <div className="bg-blue-800/5 px-6 py-4 border-b border-gray-100">
               <div className="flex items-center">
                 <input
                   type="checkbox"

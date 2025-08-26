@@ -11,8 +11,8 @@ import ResetPassword from "./component/resetpassword";
 import FAQSection from "./contactus";
 import About from "./component/about";
 import ProjectManagementDashboard from "./dashboards/condopages/projectmanagment";
-import Vendor from "./dashboards/condopages/Vendormanagment";
-
+import Vendormanage from "./dashboards/condopages/vendormanage";
+import Report from "./dashboards/condopages/Report";
 
 const App = () => {
   return (
@@ -28,7 +28,8 @@ const App = () => {
      <Route path="/contactus" element={<FAQSection/>}/>
      <Route path="/About" element={<About/>} />
    <Route path="/projectmanagement" element={<ProjectManagementDashboard/>}/>
-   <Route path="vendor" element={<Vendor/>}/>
+   <Route path="vendormanagement" element={<Vendormanage/>}/>
+      <Route path="/report" element={<Report/>}/>
     </Routes>
   );
 };
