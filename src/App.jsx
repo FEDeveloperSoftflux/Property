@@ -13,6 +13,9 @@ import About from "./component/about";
 import ProjectManagementDashboard from "./dashboards/condopages/projectmanagment";
 import Vendormanage from "./dashboards/condopages/vendormanage";
 import Report from "./dashboards/condopages/Report";
+import Setting from "./dashboards/condopages/setting";
+import Messages from "./dashboards/condopages/message/messages";
+import NotificationsPage from "./dashboards/condopages/AllNotification";
 
 const App = () => {
   return (
@@ -30,6 +33,9 @@ const App = () => {
    <Route path="/projectmanagement" element={<ProjectManagementDashboard/>}/>
    <Route path="vendormanagement" element={<Vendormanage/>}/>
       <Route path="/report" element={<Report/>}/>
+      <Route path="/setting" element={<Setting/>}/>
+      <Route path="/message" element={<Messages/>}/>
+      <Route path="/all notification" element={<NotificationsPage/> }/>
     </Routes>
   );
 };

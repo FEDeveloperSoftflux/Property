@@ -24,6 +24,7 @@ import StatsCard from '../statscard';
 import { DollarSign} from "lucide-react";
 import img from "../../assets/invest.png";
 import FilterBar from './Filter';
+import Reportgraph from '../graph/reportgraph';
 
 const Report = () => {
   const [selectedVendor, setSelectedVendor] = useState('All Vendor');
@@ -77,18 +78,18 @@ const Report = () => {
   ];
 const [isExpanded, setIsExpanded] = useState(true);
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className=" h-screen bg-gray-50">
       {/* Sidebar */}
        <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
 
       {/* Main Content */}
-           <div  className={`transition-all bg-white duration-300 flex-1 p-8 
-          ${isExpanded ? "ml-56" : "ml-20"}`}>
+           <div  className={`transition-all bg-white duration-300 flex-1 pl-8
+          ${isExpanded ? "ml-56" : "ml-14"}`}>
         {/* Header */}
        <Header title="Report Management"></Header>
-
+<div className='pl-2 mr-3'>
         {/* Dashboard Content */}
-        <div className="p-8">
+        <div className="pl-4">
           <div className="mb-8">
             <h2 className="text-xl font-bold text-gray-900 mb-2">Projects Progress Report</h2>
             <p className="text-gray-600">You can generate your project reports</p>
@@ -105,7 +106,7 @@ const [isExpanded, setIsExpanded] = useState(true);
         title="Total Completed Tasks" 
         value="5" 
         icon={CheckCircle} 
-        variant="dark"   // 👈 makes middle card blue
+          // 
       />
       <StatsCard 
         title="Total Assets Worked On" 
@@ -113,58 +114,22 @@ const [isExpanded, setIsExpanded] = useState(true);
         icon={FileText} 
       />
     </div>
-          {/* Filters */}
-          
-<FilterBar/>
-          {/* Performance Chart */}
-          <div className="bg-white rounded-lg shadow-sm border p-6 mb-8">
-            <div className="mb-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-1">Performance Progress</h3>
-              <p className="text-gray-600">Monthly completed projects and earnings overview</p>
-            </div>
-            
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={performanceData}>
-                  <XAxis 
-                    dataKey="month" 
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: '#6b7280', fontSize: 12 }}
-                  />
-                  <YAxis 
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: '#6b7280', fontSize: 12 }}
-                    domain={[0, 32]}
-                    ticks={[0, 8, 16, 24, 32]}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="value" 
-                    stroke="rgba(56, 90, 156, 1)" 
-                    strokeWidth={3}
-                    dot={{ fill: 'rgba(56, 90, 156, 1)', strokeWidth: 2, r: 4 }}
-                    activeDot={{ r: 6, fill: 'rgba(56, 90, 156, 1)' }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
+          {/* Filters  + graph */}
+          <Reportgraph/>
 
-            <div className="flex justify-end space-x-4 mt-4">
-              <button className="flex items-center px-4 py-2 text-sm text-gray-600 border rounded-lg hover:bg-gray-50">
+            <div className="flex justify-end space-x-4 mt-4 mb-4">
+              <button className="flex items-center bg-neutral-50 px-4 py-2 text-sm text-gray-600 border rounded-lg hover:bg-gray-50">
                 <Download className="w-4 h-4 mr-2" />
                 Export CSV
               </button>
-              <button className="flex items-center px-4 py-2 text-sm text-gray-600 border rounded-lg hover:bg-gray-50">
+              <button className="flex items-center bg-neutral-50 px-4 py-2 text-sm text-gray-600 border rounded-lg hover:bg-gray-50">
                 <Download className="w-4 h-4 mr-2" />
                 Export PDF
               </button>
             </div>
-          </div>
 
           {/* Projects Table */}
-          <div className="bg-white rounded-2xl shadow-sm border overflow-hidden">
+          <div className="bg-white mb-5 rounded-2xl shadow-sm border overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-blue-800/5">
@@ -213,6 +178,7 @@ const [isExpanded, setIsExpanded] = useState(true);
         
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

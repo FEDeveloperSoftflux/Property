@@ -206,16 +206,14 @@ export default function Vendormanage() {
     ));
 
   return (
-    <div className="flex h-full bg-gray-50">
+    <div className=" h-full bg-gray-50">
       <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
-
-      <div className={`transition-all bg-white duration-300 flex-1 p-8 ${isExpanded ? "ml-60" : "ml-20"}`}>
-        <Header title="Vendors Management" />
-        <div className='ml-8'>
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">All Vendors</h2>
+  <div className={`transition-all bg-white overflow-hidden duration-300  ${isExpanded ? "ml-60" : "ml-20"}`}>
+   <Header title="   Vendors Management" />
+      <div className='pl-8 pr-8' >
+          <h2 className="text-lg font-semibold text-gray-900 ">All Vendors</h2>
           <p className="text-sm text-gray-600 mb-4">Manage your vendor treatment list and discover new service providers.</p>
-        </div>
-        
+       
         <div className="flex justify-center mb-6">
           <button 
             className={`px-6 py-2 rounded-xl text-sm font-medium w-[500px] border border-gray-300 ${
@@ -239,7 +237,7 @@ export default function Vendormanage() {
           </button>
         </div>
 
-        <div className="flex space-x-4 mb-6">
+        <div className=" flex space-x-4 mb-6">
           <div className="flex-1 w-60 relative">
             <Search className="w-4 h-4 absolute left-3 top-3 text-gray-400" />
             <input
@@ -348,6 +346,7 @@ export default function Vendormanage() {
         ) : (
           <SearchView setActiveView={setActiveView} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         )}
+      </div>
       </div>
     </div>
   );

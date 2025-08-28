@@ -122,6 +122,7 @@ export default function ProjectManagementDashboard() {
       endDate: '2025-02-28'
     }
   ]);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Get unique values for filter dropdowns
   const getUniqueValues = (key) => {
@@ -218,16 +219,16 @@ export default function ProjectManagementDashboard() {
   return (
     <div className="flex min-h-screen bg-white">
       {/* Sidebar */}
-      <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+     <Sidebar   isExpanded={isExpanded}   setIsExpanded={setIsExpanded}  isMobileOpen={isMobileMenuOpen}  setIsMobileOpen={setIsMobileMenuOpen}/>
       
       {/* Main Content */}
-      <div className={`transition-all duration-300 flex-1 p-8 
+      <div className={`transition-all duration-300 flex-1  
           ${isExpanded ? "ml-60" : "ml-20"}`}>
         
   <Header title="Project Management" />
 
         {/* Projects & Operations Section */}
-        <div className="p-6">
+        <div className="pl-6 pr-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold text-gray-800">Projects & Operations</h2>
             <button 
