@@ -108,7 +108,7 @@ export default function Condo() {
       <div className={`transition-all duration-300 
         ${isExpanded ? "lg:ml-64 ml-0" : "lg:ml-20 ml-0"}`}>
            <Header 
-                 title="Dash Board"
+                 title="DashBoard"
                  subtitle="Welcom back!" 
                  onMobileMenuToggle={() => setIsExpanded(true)}
                  showMobileMenu={isMobile}

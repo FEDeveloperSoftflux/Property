@@ -20,6 +20,7 @@ import {
 import Sidebar from '../../Sidebar';
 import Header from '../Dashboardheader';
 import logo from "../../../assets/Dashlogo.png";
+import { useEffect } from 'react';
 const Messages = () => {
   const [selectedChat, setSelectedChat] = useState(null);
   const [newMessage, setNewMessage] = useState('');
@@ -136,20 +137,36 @@ const Messages = () => {
     setSelectedChat(updatedChats.find(chat => chat.id === selectedChat.id));
     setNewMessage('');
   };
-
+  const [isMobile, setIsMobile] = useState(false);
   
 const [isExpanded, setIsExpanded] = useState(true);
   const toggleActionMenu = (chatId, e) => {
     e.stopPropagation();
     setShowActionMenu(showActionMenu === chatId ? null : chatId);
   };
+ useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 1024;
+      setIsMobile(mobile);
+      if (mobile) {
+        setIsExpanded(false);
+      }
+    };
 
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   return (
     <div>
 <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
      <div className={`transition-all bg-white duration-300 p-4 pt-0
-          ${isExpanded ? "ml-56" : "ml-20"}`}>
-    <Header title="Messages"/>
+         ${isExpanded && !isMobile ? "ml-64" : isMobile ? "ml-0" : "ml-16 sm:ml-20"}`}>
+      <Header 
+              title="Messages" 
+              onMobileMenuToggle={() => setIsExpanded(true)}
+              showMobileMenu={isMobile}
+            />
     <div className="flex h-screen bg-white border border-gray-400 rounded-2xl ml-20 mr-20 sm:p-6 md:p-8  mb-20">
       {/* Chat List */}
       <div className="w-96 bg-white border-r border-gray-200 flex flex-col">

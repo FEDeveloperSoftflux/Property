@@ -4,8 +4,8 @@ import Login from "./component/Login";
 import Forgetpassword from "./component/forgetpassword";
 import OtpVerification from "./component/otpverifaction"; // fixed name
 import Signin from "./component/signin";
-import Condo from "./dashboards/Condo";
-import AssetsManagement from "./dashboards/condopages/assest";
+import Condo from "./dashboards/Dashboard";
+import AssetsManagement from "./dashboards/condopages/AssestManagment";
 import PricingPage from "./pricing";
 import ResetPassword from "./component/resetpassword";
 import FAQSection from "./contactus";
@@ -14,9 +14,8 @@ import ProjectManagementDashboard from "./dashboards/condopages/projectmanagment
 import Vendormanage from "./dashboards/condopages/vendormanage";
 import Report from "./dashboards/condopages/Report";
 import Setting from "./dashboards/condopages/setting";
-import Messages from "./dashboards/condopages/message/messages";
 import NotificationsPage from "./dashboards/condopages/AllNotification";
-
+import Messages from "./MESSAGE/Messages";
 const App = () => {
   return (
     <Routes>
@@ -34,8 +33,8 @@ const App = () => {
    <Route path="vendormanagement" element={<Vendormanage/>}/>
       <Route path="/report" element={<Report/>}/>
       <Route path="/setting" element={<Setting/>}/>
-      <Route path="/message" element={<Messages/>}/>
       <Route path="/all notification" element={<NotificationsPage/> }/>
+      <Route path="/message" element={<Messages/>}/>
     </Routes>
   );
 };

@@ -113,9 +113,8 @@ export default function Sidebar({ isExpanded, setIsExpanded }) {
             ) : (
               <Menu className="w-5 h-5 lg:hidden" />
             )}
-            <ChevronLeft className="w-5 h-5 hidden lg:block" />
-            {!isExpanded && (
-              <ChevronRight className="w-5 h-5 hidden lg:block" />
+           { isExpanded ? (<ChevronLeft className="w-5 h-5 hidden lg:block" />) :
+              (<ChevronRight className="w-5 h-5 hidden lg:block" />
             )}
           </button>
         </div>
@@ -133,7 +132,7 @@ export default function Sidebar({ isExpanded, setIsExpanded }) {
                   rounded-xl sm:rounded-2xl w-full transition-all duration-200
                   ${isActive
                     ? "bg-custom-blue text-white shadow-lg"
-                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-800 hover:scale-[1.02]"
+                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-800 hover:scale-105"
                   }
                   ${!isExpanded ? 'justify-center' : 'justify-start'}
                 `}
@@ -147,21 +146,7 @@ export default function Sidebar({ isExpanded, setIsExpanded }) {
                   <span className="text-sm sm:text-base font-medium truncate">
                     {item.label}
                   </span>
-                )}
-
-                {/* Tooltip for collapsed state on desktop */}
-                {!isExpanded && (
-                  <span
-                    className="
-                      absolute left-full ml-2 px-3 py-2 rounded-lg 
-                      bg-gray-800 text-white text-sm whitespace-nowrap 
-                      pointer-events-none
-                      hidden lg:block
-                    "
-                  >
-                    {item.label}
-                  </span>
-                )}
+                )}     
               </button>
             );
           })}
@@ -176,7 +161,7 @@ export default function Sidebar({ isExpanded, setIsExpanded }) {
               w-full rounded-xl sm:rounded-2xl transition-all duration-200
               ${location.pathname === "/setting"
                 ? "bg-custom-blue text-white shadow-lg"
-                : "text-gray-600 hover:bg-gray-100 hover:text-gray-800 hover:scale-[1.02]"
+                : "text-gray-600 hover:bg-gray-100 hover:text-gray-800 hover:scale-[1.04]"
               }
               ${!isExpanded ? 'justify-center' : 'justify-start'}
             `}

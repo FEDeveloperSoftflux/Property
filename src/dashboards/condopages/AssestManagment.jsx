@@ -6,8 +6,8 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../Sidebar";
-import AssetManagementModal from "../condopages/AddNewAssetModal";
-import AssetPreviewModal from "../condopages/PreviewAsset";
+import AssetManagementModal from "./AddNewAssetModal";
+import AssetPreviewModal from "./PreviewAsset";
 import Header from "./Dashboardheader";
 import StatsCard from "../statscard";
 
@@ -113,7 +113,7 @@ export default function AssetsManagement() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       {/* Sidebar */}
       <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
       
@@ -244,7 +244,7 @@ export default function AssetsManagement() {
                       type="checkbox"
                       checked={selectedAssets.length === assetsData.length}
                       onChange={toggleAllAssets}
-                      className="w-4 h-4 mr-6 text-blue-600 rounded focus:ring-blue-500"
+                      className="w-4 h-4 mr-6 text-custom-blue rounded focus:ring-custom-blue"
                     />
                     <div className="grid grid-cols-6 gap-8 flex-1 text-xs font-medium text-gray-500 uppercase tracking-wide">
                       <div>ID / Created At</div>
@@ -266,7 +266,7 @@ export default function AssetsManagement() {
                         type="checkbox"
                         checked={selectedAssets.includes(asset.id)}
                         onChange={() => toggleAssetSelection(asset.id)}
-                        className="w-4 h-4 mr-6 text-blue-600 rounded focus:ring-blue-500"
+                        className="w-4 h-4 mr-6 text-custom-blue rounded focus:ring-custom-blue"
                       />
                       <div className="grid grid-cols-6 gap-8 flex-1 items-center text-sm">
                         <div>

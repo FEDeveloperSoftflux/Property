@@ -18,6 +18,7 @@ import Sidebar from "../Sidebar";
 import Header from "../condopages/Dashboardheader";
 import StatsCard from "../statscard";
 import CreateProjectModal from "../condopages/CreateProjectModal";
+import ProjectsTable from "./projecttable";
 
 export default function ProjectManagementDashboard() {
   const [isMobile, setIsMobile] = useState(false);
@@ -149,7 +150,7 @@ export default function ProjectManagementDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       {/* Sidebar */}
       <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
 
@@ -296,172 +297,15 @@ export default function ProjectManagementDashboard() {
               </div>
             </div>
           </div>
-
-          {/* Table */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-            <div className="hidden lg:block overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase">
-                      ID
-                    </th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase">
-                      Title
-                    </th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase">
-                      Company
-                    </th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase">
-                      Vendor
-                    </th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase">
-                      Priority
-                    </th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase">
-                      Status
-                    </th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase">
-                      Timeline
-                    </th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase">
-                      Cost
-                    </th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100">
-                  {filteredProjects.map((p) => (
-                    <tr key={p.id} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-6 py-4 text-sm font-medium text-gray-900">
-                        {p.id}
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-900">{p.title}</td>
-                      <td className="px-6 py-4 text-sm text-gray-600">{p.company}</td>
-                      <td className="px-6 py-4 text-sm text-gray-600">{p.vendor}</td>
-                      <td className="px-6 py-4">
-                        <span
-                          className={`inline-flex px-3 py-1 text-xs font-medium rounded-full border ${getPriorityBadge(
-                            p.priority
-                          )}`}
-                        >
-                          {p.priority}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span
-                          className={`inline-flex px-3 py-1 text-xs font-medium rounded-full border ${getStatusBadge(
-                            p.status
-                          )}`}
-                        >
-                          {p.status}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">{p.timeline}</td>
-                      <td className="px-6 py-4 text-sm font-medium text-gray-900">
-                        {p.cost}
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="flex space-x-2">
-                          <button className="p-1 hover:bg-blue-100 rounded">
-                            <Eye className="w-4 h-4 text-gray-400 hover:text-blue-600" />
-                          </button>
-                          <button className="p-1 hover:bg-blue-100 rounded">
-                            <Edit className="w-4 h-4 text-gray-400 hover:text-blue-600" />
-                          </button>
-                          <button
-                            onClick={() => handleDeleteProject(p.id)}
-                            className="p-1 hover:bg-red-100 rounded"
-                          >
-                            <Trash2 className="w-4 h-4 text-gray-400 hover:text-red-600" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Mobile Cards */}
-            <div className="lg:hidden">
-              {filteredProjects.map((p) => (
-                <div
-                  key={p.id}
-                  className="p-4 border-b border-gray-100 last:border-b-0"
-                >
-                  <div className="flex items-start justify-between mb-3">
-                    <div>
-                      <div className="font-medium text-gray-900 text-base">
-                        {p.title}
-                      </div>
-                      <div className="text-sm text-gray-500">{p.id}</div>
-                    </div>
-                    <span
-                      className={`px-2 py-1 text-xs font-medium rounded-full border ${getStatusBadge(
-                        p.status
-                      )}`}
-                    >
-                      {p.status}
-                    </span>
-                  </div>
-
-                  <div className="space-y-2 mb-4">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-500">Company:</span>
-                      <span className="text-sm font-medium text-gray-900">
-                        {p.company}
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-500">Vendor:</span>
-                      <span className="text-sm font-medium text-gray-900">
-                        {p.vendor}
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-500">Timeline:</span>
-                      <span className="text-sm text-gray-900">{p.timeline}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-500">Cost:</span>
-                      <span className="text-sm font-medium text-gray-900">
-                        {p.cost}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex space-x-4 pt-3 border-t border-gray-100">
-                    <button className="flex items-center text-sm text-blue-600 hover:text-blue-800">
-                      <Eye className="w-4 h-4 mr-1" />
-                      View
-                    </button>
-                    <button className="flex items-center text-sm text-gray-600 hover:text-gray-800">
-                      <Edit className="w-4 h-4 mr-1" />
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDeleteProject(p.id)}
-                      className="flex items-center text-sm text-red-600 hover:text-red-800"
-                    >
-                      <Trash2 className="w-4 h-4 mr-1" />
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {filteredProjects.length === 0 && (
-              <div className="p-8 text-center">
-                <p className="text-gray-500">No projects found</p>
-              </div>
-            )}
-          </div>
+<ProjectsTable
+            filteredProjects={filteredProjects}
+            getPriorityBadge={getPriorityBadge}
+            getStatusBadge={getStatusBadge}
+            handleDeleteProject={handleDeleteProject}
+          />
         </div>
-      </div>
+        </div>
+ 
 
       {/* Create Modal */}
       <CreateProjectModal
@@ -470,5 +314,6 @@ export default function ProjectManagementDashboard() {
         onSave={(newProject) => setProjects((prev) => [newProject, ...prev])}
       />
     </div>
+  
   );
 }

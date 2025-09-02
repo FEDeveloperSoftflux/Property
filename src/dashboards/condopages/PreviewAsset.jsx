@@ -1,7 +1,7 @@
 import React from "react";
 import { X, Download } from "lucide-react";
 import qr from "../../assets/objects.png";
-
+import img from "../../assets/assets.png"
 const handleFileUpload = (event) => {
   const files = Array.from(event.target.files);
   setFormData(prev => ({
@@ -12,6 +12,7 @@ const handleFileUpload = (event) => {
 
 const AssetPreviewModal = ({ asset, onClose, onSave }) => {
   if (!asset) return null;
+  
 
   // Sample asset image
   const assetImage = asset?.photos?.[0]
@@ -64,13 +65,11 @@ const AssetPreviewModal = ({ asset, onClose, onSave }) => {
             <h3 className="text-sm font-medium text-gray-700 mb-4">Preview</h3>
             <div className="relative">
               <img
-                src={assetImage}
+                src={img}
                 alt={asset.name}
                 className="w-full h-52 object-cover rounded-2xl"
               />
-              <div className="absolute top-4 right-4 bg-white px-3 py-1 rounded-lg text-sm font-medium">
-                {asset.type}
-              </div>
+            
             </div>
           </div>
 
@@ -160,7 +159,7 @@ const AssetPreviewModal = ({ asset, onClose, onSave }) => {
               </div>
               <button
                 onClick={handleDownloadQR}
-                className="flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-200 rounded-lg hover:bg-blue-50"
+                className="flex items-center px-4 py-2 mt-32 text-sm font-medium text-custom-blue bg-white border border-blue-200 rounded-lg hover:bg-blue-50"
               >
                 <Download className="w-4 h-4 mr-2" />
                 Download QR Code
@@ -178,7 +177,7 @@ const AssetPreviewModal = ({ asset, onClose, onSave }) => {
             </button>
             <button
               onClick={handleSaveAsset}
-              className="px-6 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+              className="px-6 py-2 text-sm font-medium text-white bg-custom-blue rounded-lg hover:scale-110"
             >
               Save Asset
             </button>

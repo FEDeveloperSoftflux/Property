@@ -45,7 +45,7 @@ export default function Header({ title, subtitle, onMobileMenuToggle, showMobile
         
         {/* Title */}
         <div className="flex flex-col justify-center items-center">
-          <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 j">{title}</h1>
+          <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">{title}</h1>
           {subtitle && <p className="text-gray-600 text-xs sm:text-sm hidden sm:block">{subtitle}</p>}
         </div>
 
@@ -122,12 +122,12 @@ export default function Header({ title, subtitle, onMobileMenuToggle, showMobile
             <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg border border-gray-100 z-50">
               <div className="p-3 border-b border-gray-100">
                 <div className="text-sm font-semibold text-gray-900">John Doe</div>
-                <div className="text-xs text-gray-500">john.doe@example.com</div>
+                <div className="text-xs text-gray-500">condo@property.com</div>
               </div>
               <ul className="p-2">
                 <li 
                   onClick={() => {
-                    navigate("/profile");
+                    navigate("/setting");
                     setOpenProfile(false);
                   }} 
                   className="flex items-center gap-3 p-2 text-sm hover:bg-gray-50 cursor-pointer rounded-md transition-colors"
@@ -151,7 +151,7 @@ export default function Header({ title, subtitle, onMobileMenuToggle, showMobile
 
                 <li 
                   onClick={() => {
-                    navigate("/Login");
+                    navigate("/");
                     setOpenProfile(false);
                   }} 
                   className="flex items-center gap-3 p-2 text-sm hover:bg-red-50 cursor-pointer text-red-600 rounded-md transition-colors"

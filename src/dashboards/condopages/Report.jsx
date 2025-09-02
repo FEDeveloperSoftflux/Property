@@ -132,7 +132,7 @@ const Report = () => {
       <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
 
       {/* Main Content */}
-      <div className={`transition-all bg-white duration-300 flex-1 overflow-hidden
+      <div className={` bg-white flex-1 overflow-hidden
         ${isExpanded && !isMobile ? "ml-64" : isMobile ? "ml-0" : "ml-16 sm:ml-20"}`}>
         
         {/* Header */}
@@ -151,7 +151,7 @@ const Report = () => {
             </div>
 
             {/* Stats Cards - Mobile Responsive */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8  sm:text-xs">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 lg:mb-8 ">
               <StatsCard 
                 title="Today's Investment" 
                 value="10" 
