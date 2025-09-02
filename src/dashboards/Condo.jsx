@@ -20,10 +20,13 @@ import logo from "../assets/Dashlogo.png"
 import bell from "../assets/bell.png"
 import Sidebar from "./Sidebar";
 import Header from "./condopages/Dashboardheader";
+import StatsCard from './statscard';
+import { useEffect } from "react";
 
 export default function Condo() {
   const [activeSection, setActiveSection] = useState("Dashboard");
   const [isExpanded, setIsExpanded] = useState(true);
+    const [isMobile, setIsMobile] = useState(false);
   const sidebarItems = [
     { id: "dashboard", label: "Dashboard", icon: Home, active: true },
     { id: "assets", label: "Assets Management", icon: FolderOpen },
@@ -75,7 +78,19 @@ export default function Condo() {
       type: "delay"
     }
   ];
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 1024;
+      setIsMobile(mobile);
+      if (mobile) {
+        setIsExpanded(false);
+      }
+    };
 
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   const getStatusColor = (status) => {
     switch (status.toLowerCase()) {
       case 'completed': return 'bg-green-100 text-green-800';
@@ -88,11 +103,16 @@ export default function Condo() {
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Sidebar */}
-      <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+   <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
       
       <div className={`transition-all duration-300 
         ${isExpanded ? "lg:ml-64 ml-0" : "lg:ml-20 ml-0"}`}>
-        <Header title="Dashboard" subtitle="Welcome Back !" />
+           <Header 
+                 title="Dash Board"
+                 subtitle="Welcom back!" 
+                 onMobileMenuToggle={() => setIsExpanded(true)}
+                 showMobileMenu={isMobile}
+               />
         
         {/* Main Content */}
         <div className="p-2 sm:p-4 lg:p-6">
@@ -124,46 +144,36 @@ export default function Condo() {
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 lg:mb-8 ">
-            <div className="bg-white p-4 sm:p-6 rounded-3xl shadow h-40 sm:h-48">
-              <div className="flex justify-between items-start">
-                <div>
-                  <h3 className="text-sm sm:text-lg font-semibold text-gray-900 mb-2">Total Projects</h3>
-                  <div className="text-2xl sm:text-3xl font-bold text-gray-900 mt-8 sm:mt-14">14</div>
-                  <div className="text-xs sm:text-sm text-gray-600">+2 last month</div>
-                </div>
-                <div className="bg-white border border-gray-100 p-2 rounded-xl">
-                  <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-custom-blue" />
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-custom-blue p-4 sm:p-6 rounded-3xl text-white shadow-xl h-40 sm:h-48">
-              <div className="flex justify-between items-start">
-                <div>
-                  <h3 className="text-sm sm:text-lg font-semibold mb-2">Completed Projects</h3>
-                  <div className="text-2xl sm:text-3xl font-bold mt-8 sm:mt-14">128</div>
-                  <div className="text-xs sm:text-sm text-blue-200">+8 last month</div>
-                </div>
-                <div className="bg-white border border-gray-100 p-2 rounded-xl">
-                  <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-custom-blue" />
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-white p-4 sm:p-6 rounded-3xl shadow h-40 sm:h-48 sm:col-span-2 lg:col-span-1">
-              <div className="flex justify-between items-start">
-                <div>
-                  <h3 className="text-sm sm:text-lg font-semibold text-gray-900 mb-2">On-Going Projects</h3>
-                  <div className="text-2xl sm:text-3xl font-bold text-gray-900 mt-8 sm:mt-14">48</div>
-                  <div className="text-xs sm:text-sm text-gray-600">+4 last month</div>
-                </div>
-                <div className="bg-white border border-gray-100 p-2 rounded-xl">
-                  <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-custom-blue" />
-                </div>
-              </div>
-            </div>
-          </div>
+  
+
+{/* Stats Cards (reusable) */}
+<div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 lg:mb-8">
+<StatsCard
+title="Total Projects"
+value="14"
+subtitle="+2 last month"
+icon={FileText}
+variant="light"
+/>
+
+
+<StatsCard
+title="Completed Project"
+value="128"
+subtitle="+8 last month"
+icon={FileText}
+variant="light"
+/>
+
+
+<StatsCard
+title="On-Going Projects"
+value="48"
+subtitle="+4 last month"
+icon={AlertTriangle}
+variant="light"
+/>
+</div>
 
           <div className="space-y-6 rounded-3xl bg-transparent">
             {/* Activity Log */}
@@ -249,13 +259,13 @@ export default function Condo() {
                           </div>
                           <span className="text-sm text-gray-900">{request.vendor}</span>
                         </div>
-                        <div className="text-sm text-gray-600">{request.message}</div>
+                        <div className="text-sm text-gray-600  ">{request.message}</div>
                         <div className="flex space-x-2">
-                          <button className="text-custom-blue hover:text-blue-800 text-sm items-center w-20 h-8 flex justify-center bg-white rounded-lg outline outline-1 outline-offset-[-0.50px] outline-black/20">
+                          <button className="text-custom-blue hover:text-blue-800 text-sm items-center w-28 h-10 flex justify-center bg-white rounded-lg outline outline-1 outline-offset-[-0.50px] outline-black/20">
                             <MessageCircle className="w-4 h-4 mr-1" />
                             Chat
                           </button>
-                          <button className="text-custom-blue hover:text-blue-800 text-sm items-center w-20 h-8 flex justify-center bg-white rounded-lg outline outline-1 outline-offset-[-0.50px] outline-black/20">
+                          <button className="text-custom-blue hover:text-blue-800 text-sm items-center w-28 h-10 flex justify-center bg-white rounded-lg outline outline-1 outline-offset-[-0.50px] outline-black/20">
                             <User className="w-4 h-4 mr-1" />
                             Profile
                           </button>

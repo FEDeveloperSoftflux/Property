@@ -1,20 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { 
   Home, FolderOpen, Users, MessageSquare, FileText, Settings,
   Plus, Eye, AlertTriangle, Calendar, User, Bell, Search,
-  ChevronDown, Download, QrCode, Edit, Trash2, Check
+  ChevronDown, Download, QrCode, Edit, Trash2, Check, Menu
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../Sidebar";
 import AssetManagementModal from "../condopages/AddNewAssetModal";
 import AssetPreviewModal from "../condopages/PreviewAsset";
 import Header from "./Dashboardheader";
+import StatsCard from "../statscard";
 
 export default function AssetsManagement() {
   const [selectedAssets, setSelectedAssets] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [previewAsset, setPreviewAsset] = useState(null);
   const [isExpanded, setIsExpanded] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   const [assetsData, setAssetsData] = useState([
     {
@@ -45,6 +47,21 @@ export default function AssetsManagement() {
       status: "Fair"
     }
   ]);
+
+  // Handle responsive behavior
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 1024;
+      setIsMobile(mobile);
+      if (mobile) {
+        setIsExpanded(false);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const getStatusColor = (status) => {
     switch (status.toLowerCase()) {
@@ -96,30 +113,37 @@ export default function AssetsManagement() {
   };
 
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen bg-gray-50">
       {/* Sidebar */}
       <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
-      <div className={`transition-all duration-300 
-          ${isExpanded ? "ml-64" : "ml-20"}`}>
-<Header title="Assets Management" />
+      
       {/* Main Content */}
-  
-        <div className="pl-2 pr-2">
+      <div className={`transition-all duration-300 min-h-screen
+          ${isExpanded && !isMobile ? "ml-64" : isMobile ? "ml-0" : "ml-16 sm:ml-20"}`}>
+        
+        {/* Header with Mobile Menu Support */}
+        <Header 
+          title="Assets Management" 
+          onMobileMenuToggle={() => setIsExpanded(true)}
+          showMobileMenu={isMobile}
+        />
+        
+        <div className="p-4 lg:p-6">
           {/* Section Header */}
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
-            <div className="pl-4">
-              <h2 className="text-xl md:text-2xl font-bold text-gray-900">All Assets</h2>
-              <p className="text-sm text-gray-500">You can manage and update your assets</p>
+            <div>
+              <h2 className="text-xl lg:text-2xl font-bold text-gray-900">All Assets</h2>
+              <p className="text-sm text-gray-500 mt-1">You can manage and update your assets</p>
             </div>
             <button 
               onClick={() => setIsModalOpen(true)}  
-              className="flex items-center justify-center px-4 md:px-6 py-2 text-sm font-semibold text-white bg-custom-blue rounded-lg hover:bg-blue-900 h-11 mr-3 w-full sm:w-auto">
+              className="flex items-center justify-center px-4 lg:px-6 py-3 text-sm font-semibold text-white bg-custom-blue rounded-lg hover:bg-blue-900 transition-colors w-full sm:w-auto">
               <Plus className="w-4 h-4 mr-2" />
               Add New Asset
             </button>
           </div>
 
-          {/* Modal Mount */}
+          {/* Modals */}
           {isModalOpen && (
             <AssetManagementModal 
               onClose={() => setIsModalOpen(false)} 
@@ -134,158 +158,222 @@ export default function AssetsManagement() {
           )}
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
-            {/* Total Assets */}
-            <div className="bg-white p-6 rounded-3xl border border-gray-200 hover:shadow-xl hover:bg-custom-blue group h-40">
-              <div className="flex justify-between items-start">
-                <div>
-                  <p className="text-sm font-semibold text-gray-700 mb-4 group-hover:text-white">Total Assets</p>
-                  <p className="text-3xl font-bold text-gray-900 group-hover:text-white">10</p>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <StatsCard
+              title="Total Assets"
+              value={assetsData.length}
+              icon={FolderOpen}
+            />
+            <StatsCard
+              title="Needs Attention"
+              value={assetsData.filter(a => a.status.toLowerCase() === "needs attention").length}
+              icon={AlertTriangle}
+            />
+            <StatsCard
+              title="Good Condition"
+              value={assetsData.filter(a => a.status.toLowerCase() === "good").length}
+              icon={Check}
+            />
+            <StatsCard
+              title="Fair Condition"
+              value={assetsData.filter(a => a.status.toLowerCase() === "fair").length}
+              icon={() => (
+                <div className="rounded-full bg-custom-blue w-7 h-7 flex items-center justify-center text-white text-lg">
+                  !
                 </div>
-                <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center border border-gray-100 group-hover:bg-custom-blue">
-                  <FolderOpen className="w-6 h-6 text-custom-blue group-hover:text-white" />
-                </div>
-              </div>
-            </div>
-
-            {/* Needs Attention */}
-            <div className="bg-white border border-gray-200 p-6 rounded-3xl hover:shadow-lg hover:bg-custom-blue group h-40">
-              <div className="flex justify-between items-start">
-                <div>
-                  <p className="text-sm font-semibold text-gray-700 mb-4 group-hover:text-white">Needs Attention</p>
-                  <p className="text-3xl font-bold text-black group-hover:text-white">5</p>
-                </div>
-                <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center group-hover:bg-custom-blue border">
-                  <AlertTriangle className="w-6 h-6 text-custom-blue group-hover:text-white" />
-                </div>
-              </div>
-            </div>
-
-            {/* Good Condition */}
-            <div className="bg-white p-6 rounded-3xl border border-gray-200 hover:shadow-lg hover:bg-custom-blue group h-40">
-              <div className="flex justify-between items-start">
-                <div>
-                  <p className="text-sm font-semibold text-gray-700 mb-4 group-hover:text-white">Good Condition</p>
-                  <p className="text-3xl font-bold text-gray-900 group-hover:text-white">4</p>
-                </div>
-                <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center border border-gray-100 group-hover:bg-custom-blue">
-                  <Check className="bg-custom-blue text-white rounded-full group-hover:bg-white group-hover:text-custom-blue"/> 
-                </div>
-              </div>
-            </div>
-
-            {/* Fair Condition */}
-            <div className="bg-white p-6 rounded-3xl border border-gray-200 hover:shadow-lg hover:bg-custom-blue group h-40">
-              <div className="flex justify-between items-start">
-                <div>
-                  <p className="text-sm font-semibold text-gray-700 mb-4 group-hover:text-white">Fair Condition</p>
-                  <p className="text-3xl font-bold text-gray-900 group-hover:text-white">1</p>
-                </div>
-                <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center border border-gray-100  group-hover:bg-custom-blue">
-                  <div className="rounded-full bg-custom-blue group-hover:bg-white w-7 flex justify-center items-center">
-                    <span className="text-white text-xl group-hover:text-custom-blue">!</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+              )}
+            />
           </div>
 
           {/* Filters */}
-          <div className="flex flex-col lg:flex-row lg:space-x-4 gap-4 mb-6">
+          <div className="flex flex-col space-y-4 lg:flex-row lg:space-y-0 lg:space-x-4 mb-6">
             <div className="flex-1 relative">
-              <Search className="w-4 h-4 absolute left-3 top-3 text-gray-400" />
+              <Search className="w-4 h-4 absolute left-3 top-3.5 text-gray-400" />
               <input
                 type="text"
                 placeholder="Search by asset name or ID..."
-                className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
             
-            <div className="relative">
-              <select className="appearance-none bg-gray-50 border border-gray-200 rounded-2xl px-4 py-3 pr-10 text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-auto">
-                <option>All Types</option>
-                <option>HVAC</option>
-                <option>Elevator</option>
-                <option>Electrical</option>
-              </select>
-              <ChevronDown className="w-4 h-4 absolute right-3 top-3.5 text-gray-400 pointer-events-none" />
-            </div>
+            <div className="grid grid-cols-2 gap-4 lg:flex lg:space-x-4">
+              <div className="relative">
+                <select className="appearance-none bg-white border border-gray-200 rounded-xl px-4 py-3 pr-10 text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full">
+                  <option>All Types</option>
+                  <option>HVAC</option>
+                  <option>Elevator</option>
+                  <option>Electrical</option>
+                </select>
+                <ChevronDown className="w-4 h-4 absolute right-3 top-3.5 text-gray-400 pointer-events-none" />
+              </div>
 
-            <div className="relative">
-              <select className="appearance-none bg-gray-50 border border-gray-200 rounded-2xl px-4 py-3 pr-10 text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-custom-blue w-full sm:w-auto">
-                <option>All Statuses</option>
-                <option>Good</option>
-                <option>Fair</option>
-                <option>Needs Attention</option>
-              </select>
-              <ChevronDown className="w-4 h-4 absolute right-3 top-3.5 text-gray-400 pointer-events-none" />
-            </div>
+              <div className="relative">
+                <select className="appearance-none bg-white border border-gray-200 rounded-xl px-4 py-3 pr-10 text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full">
+                  <option>All Statuses</option>
+                  <option>Good</option>
+                  <option>Fair</option>
+                  <option>Needs Attention</option>
+                </select>
+                <ChevronDown className="w-4 h-4 absolute right-3 top-3.5 text-gray-400 pointer-events-none" />
+              </div>
 
-            <div className="relative">
-              <input
-                type="date"
-                className="w-full sm:w-auto bg-gray-50 border border-gray-200 rounded-2xl px-4 py-3 text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-custom-blue"
-              />
-            </div>
+              <div className="col-span-2 lg:col-span-1">
+                <input
+                  type="date"
+                  className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
 
-            <button className="flex items-center justify-center px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sm text-gray-600 hover:bg-gray-100 w-full sm:w-auto">
-              <QrCode className="w-4 h-4 mr-2" />
-              Download QR Code
-            </button>
+              <button className="col-span-2 lg:col-span-1 flex items-center justify-center px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm text-gray-600 hover:bg-gray-50 transition-colors">
+                <QrCode className="w-4 h-4 mr-2" />
+                <span className="hidden sm:inline">Download QR</span>
+                <span className="sm:hidden">QR Code</span>
+              </button>
+            </div>
           </div>
 
           {/* Assets Table */}
-          <div className="bg-white rounded-3xl border border-gray-100 overflow-x-auto">
-            {/* Table Header */}
-            <div className="min-w-[800px]">
-              <div className="bg-blue-800/5 px-6 py-4 border-b border-gray-100">
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    checked={selectedAssets.length === assetsData.length}
-                    onChange={toggleAllAssets}
-                    className="w-4 h-4 mr-6"
-                  />
-                  <div className="grid grid-cols-6 gap-8 flex-1 text-xs font-medium text-gray-500 uppercase">
-                    <div>ID / Created At</div>
-                    <div>Asset Name</div>
-                    <div>Type</div>
-                    <div>Category</div>
-                    <div>Location</div>
-                    <div>Status</div>
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+            {/* Desktop Table View */}
+            <div className="hidden lg:block overflow-x-auto">
+              <div className="min-w-[800px]">
+                {/* Table Header */}
+                <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      checked={selectedAssets.length === assetsData.length}
+                      onChange={toggleAllAssets}
+                      className="w-4 h-4 mr-6 text-blue-600 rounded focus:ring-blue-500"
+                    />
+                    <div className="grid grid-cols-6 gap-8 flex-1 text-xs font-medium text-gray-500 uppercase tracking-wide">
+                      <div>ID / Created At</div>
+                      <div>Asset Name</div>
+                      <div>Type</div>
+                      <div>Category</div>
+                      <div>Location</div>
+                      <div>Status</div>
+                    </div>
+                    <div className="w-20 text-xs font-medium text-gray-500 uppercase tracking-wide">Actions</div>
                   </div>
-                  <div className="w-20 text-xs font-medium text-gray-500 uppercase">Actions</div>
+                </div>
+
+                {/* Table Body */}
+                {assetsData.map(asset => (
+                  <div key={asset.id} className="px-6 py-4 border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                    <div className="flex items-center">
+                      <input
+                        type="checkbox"
+                        checked={selectedAssets.includes(asset.id)}
+                        onChange={() => toggleAssetSelection(asset.id)}
+                        className="w-4 h-4 mr-6 text-blue-600 rounded focus:ring-blue-500"
+                      />
+                      <div className="grid grid-cols-6 gap-8 flex-1 items-center text-sm">
+                        <div>
+                          <div className="font-medium text-gray-900">{asset.id}</div>
+                          <div className="text-xs text-gray-500">{asset.createdAt}</div>
+                        </div>
+                        <div className="font-medium text-gray-900">{asset.name}</div>
+                        <div className="text-gray-600">{asset.type}</div>
+                        <div className="text-gray-600">{asset.category}</div>
+                        <div className="text-gray-600">{asset.location}</div>
+                        <div>
+                          <span className={`px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(asset.status)}`}>
+                            {asset.status}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex space-x-2 w-20">
+                        <button 
+                          onClick={() => setPreviewAsset(asset)}
+                          className="p-1 hover:bg-blue-100 rounded transition-colors"
+                        >
+                          <Eye className="w-4 h-4 text-gray-400 hover:text-blue-600" />
+                        </button>
+                        <button className="p-1 hover:bg-blue-100 rounded transition-colors">
+                          <Edit className="w-4 h-4 text-gray-400 hover:text-blue-600" />
+                        </button>
+                        <button className="p-1 hover:bg-red-100 rounded transition-colors">
+                          <Trash2 className="w-4 h-4 text-gray-400 hover:text-red-600" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile Card View */}
+            <div className="lg:hidden">
+              <div className="p-4 border-b border-gray-200 bg-gray-50">
+                <div className="flex items-center justify-between">
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      checked={selectedAssets.length === assetsData.length}
+                      onChange={toggleAllAssets}
+                      className="w-4 h-4 mr-3 text-blue-600 rounded focus:ring-blue-500"
+                    />
+                    <span className="text-sm font-medium text-gray-700">Select All</span>
+                  </label>
+                  <span className="text-sm text-gray-500">
+                    {selectedAssets.length} of {assetsData.length} selected
+                  </span>
                 </div>
               </div>
 
-              {/* Table Body */}
               {assetsData.map(asset => (
-                <div key={asset.id} className="px-6 py-4 border-b border-gray-100 flex items-center">
-                  <input
-                    type="checkbox"
-                    checked={selectedAssets.includes(asset.id)}
-                    onChange={() => toggleAssetSelection(asset.id)}
-                    className="w-4 h-4 mr-6"
-                  />
-                  <div className="grid grid-cols-6 gap-8 flex-1 items-center text-sm">
-                    <div>
-                      <div className="font-medium">{asset.id}</div>
-                      <div className="text-xs text-gray-500">{asset.createdAt}</div>
+                <div key={asset.id} className="p-4 border-b border-gray-100">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-center">
+                      <input
+                        type="checkbox"
+                        checked={selectedAssets.includes(asset.id)}
+                        onChange={() => toggleAssetSelection(asset.id)}
+                        className="w-4 h-4 mr-3 text-blue-600 rounded focus:ring-blue-500"
+                      />
+                      <div>
+                        <div className="font-medium text-gray-900">{asset.name}</div>
+                        <div className="text-sm text-gray-500">{asset.id} • {asset.createdAt}</div>
+                      </div>
                     </div>
-                    <div>{asset.name}</div>
-                    <div>{asset.type}</div>
-                    <div>{asset.category}</div>
-                    <div>{asset.location}</div>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(asset.status)}`}>
+                      {asset.status}
+                    </span>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-3 text-sm mb-3">
                     <div>
-                      <span className={`px-3 py-1 rounded-xl text-xs font-medium border ${getStatusColor(asset.status)}`}>
-                        {asset.status}
-                      </span>
+                      <span className="text-gray-500">Type:</span>
+                      <span className="ml-1 text-gray-900">{asset.type}</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Category:</span>
+                      <span className="ml-1 text-gray-900">{asset.category}</span>
                     </div>
                   </div>
-                  <div className="flex space-x-2 w-20">
-                    <Eye className="w-4 h-4 text-gray-400 hover:text-blue-600 cursor-pointer" onClick={() => setPreviewAsset(asset)} />
-                    <Edit className="w-4 h-4 text-gray-400 hover:text-blue-600 cursor-pointer" />
-                    <Trash2 className="w-4 h-4 text-gray-400 hover:text-red-600 cursor-pointer" />
+                  
+                  <div className="text-sm mb-3">
+                    <span className="text-gray-500">Location:</span>
+                    <span className="ml-1 text-gray-900">{asset.location}</span>
+                  </div>
+
+                  <div className="flex space-x-4">
+                    <button 
+                      onClick={() => setPreviewAsset(asset)}
+                      className="flex items-center text-sm text-blue-600 hover:text-blue-800"
+                    >
+                      <Eye className="w-4 h-4 mr-1" />
+                      View
+                    </button>
+                    <button className="flex items-center text-sm text-gray-600 hover:text-gray-800">
+                      <Edit className="w-4 h-4 mr-1" />
+                      Edit
+                    </button>
+                    <button className="flex items-center text-sm text-red-600 hover:text-red-800">
+                      <Trash2 className="w-4 h-4 mr-1" />
+                      Delete
+                    </button>
                   </div>
                 </div>
               ))}
@@ -294,6 +382,5 @@ export default function AssetsManagement() {
         </div>
       </div>
     </div>
-  
   );
 }

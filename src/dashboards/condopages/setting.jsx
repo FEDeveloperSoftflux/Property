@@ -81,13 +81,13 @@ const [isExpanded, setIsExpanded] = useState(true);
         <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded}/>
 
         {/* Main Content */}
-         <div  className={`transition-all bg-white duration-300 flex-1 p-8 
+         <div  className={`transition-all bg-white duration-300 flex-1
           ${isExpanded ? "ml-56" : "ml-20"}`}>
           <div className="pl-8">
             {/* Header */}
            <Header title="Settings"/>
             {/* Tab Navigation */}
-            <div className="flex space-x-4 mb-8 w-full justify-center bg-white">
+            <div className="flex space-x-4 mb-8 w-full justify-center bg-white P-8">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}

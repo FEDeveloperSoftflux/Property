@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { 
   Home, 
   FolderOpen, 
@@ -7,7 +7,9 @@ import {
   FileText, 
   Settings, 
   ChevronLeft, 
-  ChevronRight 
+  ChevronRight,
+  X,
+  Menu
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import nlogo from "../assets/loginlogo.png";
@@ -25,84 +27,187 @@ export default function Sidebar({ isExpanded, setIsExpanded }) {
     { id: "reports", label: "Reports", icon: <FileText className="w-5 h-5" />, path: "/report" },
   ];
 
+  // Handle responsive behavior
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1024) { // lg breakpoint
+        setIsExpanded(false);
+      }
+    };
+
+    // Set initial state based on screen size
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [setIsExpanded]);
+
+  // Handle clicking outside sidebar on mobile
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (window.innerWidth < 1024 && isExpanded) {
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar && !sidebar.contains(event.target)) {
+          setIsExpanded(false);
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isExpanded, setIsExpanded]);
+
+  const handleMenuClick = (path) => {
+    navigate(path);
+    // Close sidebar on mobile after navigation
+    if (window.innerWidth < 1024) {
+      setIsExpanded(false);
+    }
+  };
+
   return (
-    <div
-      className={`h-screen bg-white border-r border-gray-300 transition-all duration-200 
-      ${isExpanded ? "w-64" : "w-20"} 
-      fixed flex flex-col z-40`}
-    >
-      {/* Logo + Toggle */}
-      <div className="flex items-center justify-between p-6">
-        {isExpanded && (
-          <div className="flex flex-col items-center gap-2">
-            <img src={nlogo} alt="logo" className="w-32 h-auto" />   
-            <span className="font-bold text-xl whitespace-nowrap">Property Connect</span>   
-          </div>
-        )}
-        <button
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="p-2"
-        >
-          {isExpanded ? <ChevronLeft /> : <ChevronRight />}
-        </button>
-      </div>
+    <>
+      {/* Mobile Overlay */}
+      {isExpanded && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
+          onClick={() => setIsExpanded(false)}
+        />
+      )}
 
-      {/* Menu Items */}
-      <div className="flex-1 space-y-2 mt-4 px-2">
-        {menuItems.map((item) => {
-          const isActive = location.pathname === item.path;
-          return (
-            <button
-              key={item.id}
-              onClick={() => navigate(item.path)}
-              className={`relative group flex items-center gap-3 py-3 px-4 rounded-2xl w-full transition-colors
-                ${isActive
-                  ? "bg-custom-blue text-white"
-                  : "text-gray-600 hover:bg-gray-200 hover:text-gray-600 hover:scale-105"
-                }`}
-            >
-              {item.icon}
-              {isExpanded && <span>{item.label}</span>}
-
-              {/* Tooltip when collapsed */}
-              {!isExpanded && (
-                <span
-                  className="absolute left-full ml-2 px-2 py-1 rounded-lg bg-custom-blue text-white text-sm whitespace-nowrap 
-                  opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50"
-                >
-                  {item.label}
-                </span>
-              )}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Settings at Bottom */}
-      <div className="p-4 mt-auto">
-        <button
-          onClick={() => navigate("/setting")}
-          className={`relative group flex items-center gap-3 py-3 px-4 w-full rounded-2xl transition-colors
-            ${location.pathname === "/setting"
-              ? "bg-custom-blue text-white"
-              : "text-gray-600 hover:bg-gray-200 hover:scale-105 "
-            }
-            ${isExpanded ? "justify-start" : "justify-center"}`}
-        >
-          <Settings className="w-5 h-5" />
-          {isExpanded && <span>Settings</span>}
-
-          {/* Tooltip when collapsed */}
-          {!isExpanded && (
-            <span
-              className="absolute left-full ml-2 px-2 py-1 rounded-md bg-custom-blue text-white text-sm whitespace-nowrap 
-              opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50"
-            >
-              Settings
-            </span>
+      {/* Sidebar */}
+      <div
+        id="sidebar"
+        className={`
+          h-screen bg-white border-r border-gray-300 transition-all duration-300 ease-in-out
+          ${isExpanded ? "w-64" : "w-16 sm:w-20"}
+          fixed flex flex-col z-40
+          ${isExpanded && window.innerWidth < 1024 ? 'shadow-2xl' : ''}
+          transform lg:transform-none
+          ${isExpanded ? 'translate-x-0' : window.innerWidth < 1024 ? '-translate-x-full lg:translate-x-0' : 'translate-x-0'}
+        `}
+      >
+        {/* Logo + Toggle */}
+        <div className="flex items-center justify-between p-4 lg:p-6 min-h-[80px]">
+          {isExpanded && (
+            <div className="flex flex-col items-center gap-2 flex-1">
+              <img 
+                src={nlogo} 
+                alt="logo" 
+                className="w-24 sm:w-28 lg:w-32 h-auto max-w-full" 
+              />   
+              <span className="font-bold text-lg sm:text-xl text-center leading-tight">
+                Property Connect
+              </span>   
+            </div>
           )}
-        </button>
+          
+          {/* Toggle Button */}
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="p-2 hover:bg-gray-100 rounded-lg transition-colors flex-shrink-0"
+            aria-label={isExpanded ? "Collapse sidebar" : "Expand sidebar"}
+          >
+            {isExpanded ? (
+              <X className="w-5 h-5 lg:hidden" />
+            ) : (
+              <Menu className="w-5 h-5 lg:hidden" />
+            )}
+            <ChevronLeft className="w-5 h-5 hidden lg:block" />
+            {!isExpanded && (
+              <ChevronRight className="w-5 h-5 hidden lg:block" />
+            )}
+          </button>
+        </div>
+
+        {/* Menu Items */}
+        <div className="flex-1 space-y-1 sm:space-y-2 mt-2 sm:mt-4 px-2 overflow-y-auto">
+          {menuItems.map((item) => {
+            const isActive = location.pathname === item.path;
+            return (
+              <button
+                key={item.id}
+                onClick={() => handleMenuClick(item.path)}
+                className={`
+                  relative group flex items-center gap-3 py-2.5 sm:py-3 px-3 sm:px-4 
+                  rounded-xl sm:rounded-2xl w-full transition-all duration-200
+                  ${isActive
+                    ? "bg-custom-blue text-white shadow-lg"
+                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-800 hover:scale-[1.02]"
+                  }
+                  ${!isExpanded ? 'justify-center' : 'justify-start'}
+                `}
+                title={!isExpanded ? item.label : undefined}
+              >
+                <div className="flex-shrink-0">
+                  {item.icon}
+                </div>
+                
+                {isExpanded && (
+                  <span className="text-sm sm:text-base font-medium truncate">
+                    {item.label}
+                  </span>
+                )}
+
+                {/* Tooltip for collapsed state on desktop */}
+                {!isExpanded && (
+                  <span
+                    className="
+                      absolute left-full ml-2 px-3 py-2 rounded-lg 
+                      bg-gray-800 text-white text-sm whitespace-nowrap 
+                      pointer-events-none
+                      hidden lg:block
+                    "
+                  >
+                    {item.label}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Settings at Bottom */}
+        <div className="p-3 sm:p-4 mt-auto border-t border-gray-100">
+          <button
+            onClick={() => handleMenuClick("/setting")}
+            className={`
+              relative group flex items-center gap-3 py-2.5 sm:py-3 px-3 sm:px-4 
+              w-full rounded-xl sm:rounded-2xl transition-all duration-200
+              ${location.pathname === "/setting"
+                ? "bg-custom-blue text-white shadow-lg"
+                : "text-gray-600 hover:bg-gray-100 hover:text-gray-800 hover:scale-[1.02]"
+              }
+              ${!isExpanded ? 'justify-center' : 'justify-start'}
+            `}
+            title={!isExpanded ? "Settings" : undefined}
+          >
+            <div className="flex-shrink-0">
+              <Settings className="w-5 h-5" />
+            </div>
+            
+            {isExpanded && (
+              <span className="text-sm sm:text-base font-medium">Settings</span>
+            )}
+
+            {/* Tooltip for collapsed state on desktop */}
+            {!isExpanded && (
+              <span
+                className="
+                  absolute left-full ml-2 px-3 py-2 rounded-lg 
+                  bg-gray-800 text-white text-sm whitespace-nowrap 
+                  opacity-0 group-hover:opacity-100 
+                  transition-opacity duration-200 z-50
+                  pointer-events-none
+                  hidden lg:block
+                "
+              >
+                Settings
+              </span>
+            )}
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
