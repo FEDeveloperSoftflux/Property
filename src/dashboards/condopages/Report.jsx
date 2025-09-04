@@ -27,12 +27,13 @@ import FilterBar from './Filter';
 import Reportgraph from '../graph/reportgraph';
 import { useEffect } from 'react';
 
+
 const Report = () => {
   const [selectedVendor, setSelectedVendor] = useState('All Vendor');
   const [selectedDate, setSelectedDate] = useState('MM/DD/YYYY');
   const [isMobile, setIsMobile] = useState(false);
   const [isExpanded, setIsExpanded] = useState(true);
-
+const [selectedProjects, setSelectedProjects] = useState([]);
   // Sample data for the performance chart
   const performanceData = [
     { month: 'Jan', value: 8 },
@@ -42,7 +43,19 @@ const Report = () => {
     { month: 'May', value: 22 },
     { month: 'Jun', value: 28 }
   ];
+const handleSelectAll = (e) => {
+    if (e.target.checked) {
+      setSelectedProjects(projects.map((p) => p.id));
+    } else {
+      setSelectedProjects([]);
+    }
+  };
 
+  const handleSelectOne = (id) => {
+    setSelectedProjects((prev) =>
+      prev.includes(id) ? prev.filter((pid) => pid !== id) : [...prev, id]
+    );
+  };
   useEffect(() => {
     const handleResize = () => {
       const mobile = window.innerWidth < 1024;
@@ -133,7 +146,7 @@ const Report = () => {
 
       {/* Main Content */}
       <div className={` bg-white flex-1 overflow-hidden
-        ${isExpanded && !isMobile ? "ml-64" : isMobile ? "ml-0" : "ml-16 sm:ml-20"}`}>
+        ${isExpanded && !isMobile  ? "ml-64" : isMobile ? "ml-0" : "ml-16 sm:ml-20"}`}>
         
         {/* Header */}
         <Header 
@@ -142,11 +155,11 @@ const Report = () => {
           showMobileMenu={isMobile}
         />
 
-        <div className='px-4 sm:px-6 lg:px-8 pb-6'>
+        <div className=' sm:px-6 lg:px-8 pb-6'>
           {/* Dashboard Content */}
           <div className="space-y-6 sm:space-y-8">
-            <div className="mb-6 sm:mb-8">
-              <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">Projects Progress Report</h2>
+            <div >
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mt-2">Projects Progress Report</h2>
               <p className="text-sm sm:text-base text-gray-600">You can generate your project reports</p>
             </div>
 
@@ -192,46 +205,92 @@ const Report = () => {
               <div className="hidden md:block">
                 <div className="overflow-x-auto">
                   <table className="w-full">
-                    <thead className="bg-blue-800/5">
-                      <tr>
-                        <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Project ID</th>
-                        <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Asset Name</th>
-                        <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time Line</th>
-                        <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Investment</th>
-                        <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Task Description</th>
-                        <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                      {projects.map((project) => (
-                        <tr key={project.id} className="hover:bg-gray-50">
-                          <td className="px-4 lg:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {project.id}
-                          </td>
-                          <td className="px-4 lg:px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {project.assetName}
-                          </td>
-                          <td className="px-4 lg:px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {project.timeline}
-                          </td>
-                          <td className="px-4 lg:px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {project.investment}
-                          </td>
-                          <td className="px-4 lg:px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {project.description}
-                          </td>
-                          <td className="px-4 lg:px-6 py-4 whitespace-nowrap">
-                            <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                              project.status === 'Complete' 
-                                ? 'bg-green-100 text-green-800'
-                                : 'bg-yellow-100 text-yellow-800'
-                            }`}>
-                              {project.status}
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
+                   <thead className="bg-blue-800/5">
+  <tr>
+    <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+      <input
+        type="checkbox"
+        className="w-4 h-4"
+        style={{ accentColor: "rgba(56, 90, 156, 1)" }}
+        checked={selectedProjects.length === projects.length}
+        onChange={handleSelectAll}
+      />
+      <span className="ml-2">Project ID</span>
+    </th>
+    <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Asset Name</th>
+    <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time Line</th>
+    <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Investment</th>
+    <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Task Description</th>
+    <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+  </tr>
+</thead>
+
+<tbody className="bg-white divide-y divide-gray-200">
+  {projects.map((project) => (
+    <tr key={project.id} className="hover:bg-gray-50">
+      <td className="px-4 lg:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 flex items-center gap-2">
+        <input
+          type="checkbox"
+          className="w-4 h-4"
+          style={{ accentColor: "rgba(56, 90, 156, 1)" }}
+          checked={selectedProjects.includes(project.id)}
+          onChange={() => handleSelectOne(project.id)}
+        />
+        {project.id}
+      </td>
+      <td className="px-4 lg:px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+        {project.assetName}
+      </td>
+      <td className="px-4 lg:px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+        {project.timeline}
+      </td>
+      <td className="px-4 lg:px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+        {project.investment}
+      </td>
+      <td className="px-4 lg:px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+        {project.description}
+      </td>
+      <td className="px-4 lg:px-6 py-4 whitespace-nowrap">
+        <span
+          className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+            project.status === "Complete"
+              ? "bg-green-100 text-green-800"
+              : "bg-yellow-100 text-yellow-800"
+          }`}
+        >
+          {project.status}
+        </span>
+        
+      </td>
+      
+    </tr>
+  ))}
+  </tbody>
+   <tfoot>
+  <tr>
+    <td colSpan="6">
+      <div className="flex justify-between items-center px-6 py-4 border-t bg-blue-800/5 w-full">
+        <button
+          className="px-3 py-1 text-sm rounded border disabled:opacity-50"
+          disabled
+        >
+          Prev
+        </button>
+
+        <div className="text-sm text-gray-600">Page 1 of 1</div>
+
+        <button
+          className="px-3 py-1 text-sm rounded border disabled:opacity-50"
+          disabled
+        >
+          Next
+        </button>
+      </div>
+    </td>
+  </tr>
+</tfoot>
+
+
                   </table>
                 </div>
               </div>

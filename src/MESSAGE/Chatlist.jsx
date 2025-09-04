@@ -29,7 +29,7 @@ export default function ChatList({
       {/* Header */}
       <div className="p-3 sm:p-4 border-b">
         <div className="flex items-center justify-between">
-          <div>
+          <div className="ml-2">
             <h1 className="text-xl sm:text-2xl font-semibold">All Chat</h1>
             <p className="text-xs sm:text-sm text-gray-500">Can talk to us</p>
           </div>

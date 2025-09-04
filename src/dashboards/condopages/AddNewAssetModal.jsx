@@ -40,8 +40,8 @@ export default function AssetManagementModal({ onClose, onSubmit }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-30  backdrop-blur flex justify-end z-50">
-      <div className="h-full w-full max-w-4xl bg-white backdrop-blur overflow-y-auto rounded-l-3xl">
+    <div className="fixed inset-0 bg-black bg-opacity-30  backdrop-blur flex lg:justify-end sm:justify-center z-50">
+      <div className="h-full w-full max-w-4xl bg-white backdrop-blur overflow-y-auto lg:rounded-l-3xl sm:rounded-none">
 
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
@@ -186,7 +186,7 @@ export default function AssetManagementModal({ onClose, onSubmit }) {
         </div>
 
         {/* Footer Buttons */}
-        <div className="flex justify-end space-x-3 p-6 border-t border-gray-200 bg-gray-50">
+        <div className="flex lg:justify-end space-x-3 p-6 border-t border-gray-200 bg-gray-50 sm:flex sm:justify-center">
           <button
             onClick={onClose}
             className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 font-medium"

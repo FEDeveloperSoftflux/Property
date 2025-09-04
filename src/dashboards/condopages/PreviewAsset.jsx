@@ -45,8 +45,8 @@ const AssetPreviewModal = ({ asset, onClose, onSave }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur flex justify-end z-50">
-      <div className="h-full w-full max-w-4xl bg-white backdrop-blur-2xl overflow-y-auto rounded-l-3xl">
+    <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur flex lg:justify-end sm:justify-center z-50">
+      <div className="h-full w-full max-w-4xl bg-white backdrop-blur-2xl overflow-y-auto lg:rounded-l-3xl sm:rounded-none">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-100">
           <h2 className="text-xl font-bold text-gray-900">Asset Preview</h2>

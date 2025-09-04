@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MessageCircle, Smile, Paperclip, Send, ArrowLeft } from "lucide-react";
-
+import { AiFillMessage } from "react-icons/ai";
 export default function ChatWindow({ selectedChat, setChats, onBackToList }) {
   const [newMessage, setNewMessage] = useState("");
 
@@ -34,7 +34,7 @@ export default function ChatWindow({ selectedChat, setChats, onBackToList }) {
       <div className="flex-1 flex items-center justify-center px-4">
         <div className="text-center">
           <div className="w-12 h-12 sm:w-16 sm:h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <MessageCircle className="w-6 h-6 sm:w-8 sm:h-8 text-custom-blue" />
+            <AiFillMessage className="w-6 h-6 sm:w-8 sm:h-8 text-custom-blue" />
           </div>
           <h3 className="text-lg sm:text-xl font-semibold">Select a conversation</h3>
           <p className="text-sm sm:text-base text-gray-500">Choose a chat from the sidebar</p>

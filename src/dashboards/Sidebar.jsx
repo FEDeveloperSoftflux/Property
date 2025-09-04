@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
-import { 
-  Home, 
-  FolderOpen, 
-  Users, 
-  MessageSquare, 
-  FileText, 
-  Settings, 
+import {  
   ChevronLeft, 
   ChevronRight,
   X,
@@ -13,18 +7,24 @@ import {
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import nlogo from "../assets/loginlogo.png";
-
+import { RiHome6Fill } from "react-icons/ri";
+import { HiBuildingOffice2 } from "react-icons/hi2";
+import { BsBagCheckFill } from "react-icons/bs";
+import { FaUserGroup } from "react-icons/fa6";
+import { BsFileEarmarkTextFill } from "react-icons/bs";
+import { AiFillMessage } from "react-icons/ai";
+import { IoSettings } from "react-icons/io5";
 export default function Sidebar({ isExpanded, setIsExpanded }) {
   const navigate = useNavigate();
   const location = useLocation();
 
   const menuItems = [
-    { id: "dashboard", label: "Dashboard", icon: <Home className="w-5 h-5" />, path: "/Condo" },
-    { id: "assets", label: "Assets Management", icon: <FolderOpen className="w-5 h-5" />, path: "/assets" },
-    { id: "projects", label: "Project Management", icon: <FileText className="w-5 h-5" />, path: "/projectmanagement" },
-    { id: "vendors", label: "Vendors Management", icon: <Users className="w-5 h-5" />, path: "/vendormanagement" },
-    { id: "messages", label: "Messages", icon: <MessageSquare className="w-5 h-5" />, path: "/message" },
-    { id: "reports", label: "Reports", icon: <FileText className="w-5 h-5" />, path: "/report" },
+    { id: "dashboard", label: "Dashboard", icon: <RiHome6Fill className="w-5 h-5" />, path: "/Condo" },
+    { id: "assets", label: "Assets Management", icon: <HiBuildingOffice2 className="w-5 h-5" />, path: "/assets" },
+    { id: "projects", label: "Project Management", icon: < BsBagCheckFill className="w-5 h-5" />, path: "/projectmanagement" },
+    { id: "vendors", label: "Vendors Management", icon: <FaUserGroup className="w-5 h-5" />, path: "/vendormanagement" },
+    { id: "messages", label: "Messages", icon: <AiFillMessage className="w-5 h-5" />, path: "/message" },
+    { id: "reports", label: "Reports", icon: <BsFileEarmarkTextFill className="w-5 h-5" />, path: "/report" },
   ];
 
   // Handle responsive behavior
@@ -132,7 +132,7 @@ export default function Sidebar({ isExpanded, setIsExpanded }) {
                   rounded-xl sm:rounded-2xl w-full transition-all duration-200
                   ${isActive
                     ? "bg-custom-blue text-white shadow-lg"
-                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-800 hover:scale-105"
+                    : "text-gray-500 hover:bg-gray-100 hover:text-gray-700 hover:scale-105"
                   }
                   ${!isExpanded ? 'justify-center' : 'justify-start'}
                 `}
@@ -143,7 +143,7 @@ export default function Sidebar({ isExpanded, setIsExpanded }) {
                 </div>
                 
                 {isExpanded && (
-                  <span className="text-sm sm:text-base font-medium truncate">
+                  <span className="text-[13px] sm:text-base font-medium truncate">
                     {item.label}
                   </span>
                 )}     
@@ -161,14 +161,14 @@ export default function Sidebar({ isExpanded, setIsExpanded }) {
               w-full rounded-xl sm:rounded-2xl transition-all duration-200
               ${location.pathname === "/setting"
                 ? "bg-custom-blue text-white shadow-lg"
-                : "text-gray-600 hover:bg-gray-100 hover:text-gray-800 hover:scale-[1.04]"
+                : "text-gray-500 hover:bg-gray-100 hover:text-gray-700 hover:scale-[1.04]"
               }
               ${!isExpanded ? 'justify-center' : 'justify-start'}
             `}
             title={!isExpanded ? "Settings" : undefined}
           >
             <div className="flex-shrink-0">
-              <Settings className="w-5 h-5" />
+              <IoSettings  className="w-5 h-5" />
             </div>
             
             {isExpanded && (
@@ -180,7 +180,7 @@ export default function Sidebar({ isExpanded, setIsExpanded }) {
               <span
                 className="
                   absolute left-full ml-2 px-3 py-2 rounded-lg 
-                  bg-gray-800 text-white text-sm whitespace-nowrap 
+                  bg-gray-600 text-white text-sm whitespace-nowrap 
                   opacity-0 group-hover:opacity-100 
                   transition-opacity duration-200 z-50
                   pointer-events-none

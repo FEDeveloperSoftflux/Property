@@ -16,11 +16,11 @@ import {
   Bell,
   TruckElectric
 } from "lucide-react";
-import logo from "../assets/Dashlogo.png"
-import bell from "../assets/bell.png"
-import Sidebar from "./Sidebar";
-import Header from "./condopages/Dashboardheader";
-import StatsCard from './statscard';
+import logo from "../../assets/Dashlogo.png"
+import bell from "../../assets/bell.png"
+import Sidebar from "../Sidebar";
+import Header from "./Dashboardheader";
+import StatsCard from '../statscard';
 import { useEffect } from "react";
 
 export default function Condo() {
@@ -175,10 +175,10 @@ variant="light"
 />
 </div>
 
-          <div className="space-y-6 rounded-3xl bg-transparent">
+          <div className="space-y-4 rounded-3xl bg-transparent">
             {/* Activity Log */}
             <div className="bg-white rounded-3xl shadow w-full">
-              <div className="flex justify-between rounded-t-3xl items-center p-4 sm:p-6 border-b bg-blue-800/5">
+              <div className="flex justify-between rounded-t-3xl items-center sm:p-6 border-b bg-blue-800/5">
                 <h3 className="text-base sm:text-lg font-semibold text-gray-900">Activity Log</h3>
                 <button className="text-custom-blue hover:text-custom-blue text-xs sm:text-sm w-16 sm:w-20 h-8 sm:h-9 bg-white rounded-[10px] border border-custom-blue">
                   View All

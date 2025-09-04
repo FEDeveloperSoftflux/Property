@@ -173,7 +173,7 @@ export default function ProjectManagementDashboard() {
 
         <div className="p-4 lg:p-6">
           {/* Page Title */}
-          <div className="mb-8 flex items-center justify-between">
+          <div className="mb-6 flex items-center justify-between">
             <div>
               <h2 className="text-xl lg:text-2xl font-bold text-gray-900 mb-2">
                 Projects & Operations

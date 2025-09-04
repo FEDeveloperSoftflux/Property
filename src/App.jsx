@@ -4,7 +4,7 @@ import Login from "./component/Login";
 import Forgetpassword from "./component/forgetpassword";
 import OtpVerification from "./component/otpverifaction"; // fixed name
 import Signin from "./component/signin";
-import Condo from "./dashboards/Dashboard";
+import Condo from "./dashboards/condopages/Dashboard";
 import AssetsManagement from "./dashboards/condopages/AssestManagment";
 import PricingPage from "./pricing";
 import ResetPassword from "./component/resetpassword";

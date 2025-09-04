@@ -30,7 +30,7 @@ export default function Header({ title, subtitle, onMobileMenuToggle, showMobile
   }, []);
 
   return (
-    <div className="w-full h-14 border-b border-gray-100 bg-white flex justify-between items-center mb-7 relative px-4 lg:px-6">
+    <div className="w-full h-14 border-b border-gray-100 bg-white flex justify-between items-center relative px-4 lg:px-6">
       {/* Left side */}
             {/* Mobile Menu Button */}
         {showMobileMenu && (
@@ -95,7 +95,7 @@ export default function Header({ title, subtitle, onMobileMenuToggle, showMobile
                 <button
                   className="w-full text-sm text-blue-600 font-medium py-3 hover:bg-gray-50 transition-colors"
                   onClick={() => {
-                    navigate("/all-notification");
+                    navigate("/all notification");
                     setOpenNotifications(false);
                   }}
                 >

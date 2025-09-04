@@ -85,8 +85,9 @@ export default function CreateProjectModal({ isOpen, onClose, onSave }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed  inset-0 bg-black bg-opacity-50 backdrop-blur  z-50">
-      <div className="bg-white rounded-l-3xl p-6 w-full max-w-4xl  overflow-y-auto absolute right-0 ">
+   <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur flex lg:justify-end sm:justify-center z-50">
+  <div className="h-full w-full p-6 max-w-4xl bg-white backdrop-blur-2xl overflow-y-auto lg:rounded-l-3xl sm:rounded-none">
+    {/* Header */}
         {/* Modal Header */}
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-xl font-semibold text-gray-800">Create New Project</h3>
