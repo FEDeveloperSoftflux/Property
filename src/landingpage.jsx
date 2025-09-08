@@ -1,6 +1,7 @@
-import SmartVendorConnections from "./component/bhero"
-import PropertyConnectFooter from "./component/Foot";
-import Header from "./component/header";
+import ScrollToTop from "./component/arrowup";
+import SmartVendorConnections from "./component/Buttonhero"
+import PropertyConnectFooter from "./component/Footer";
+import Header from "./component/Header+home";
 
 const Landingpage= () => {
   return ( 
@@ -8,6 +9,7 @@ const Landingpage= () => {
     <Header/>
  <SmartVendorConnections/>
     <PropertyConnectFooter/>
+    <ScrollToTop/>
 
     </>
   )

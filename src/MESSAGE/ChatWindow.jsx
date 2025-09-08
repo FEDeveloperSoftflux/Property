@@ -1,8 +1,11 @@
-import React, { useState } from "react";
-import { MessageCircle, Smile, Paperclip, Send, ArrowLeft } from "lucide-react";
+import React, { useState, useRef, useEffect } from "react";
+import { MessageCircle, Smile, Paperclip, Send, ArrowLeft, MoreVertical, Share, Trash2, UserX, Flag } from "lucide-react";
 import { AiFillMessage } from "react-icons/ai";
+import { FaSmile } from "react-icons/fa";
 export default function ChatWindow({ selectedChat, setChats, onBackToList }) {
   const [newMessage, setNewMessage] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
 
   const handleSendMessage = () => {
     if (!newMessage.trim() || !selectedChat) return;
@@ -27,6 +30,48 @@ export default function ChatWindow({ selectedChat, setChats, onBackToList }) {
       )
     );
     setNewMessage("");
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleMenuAction = (action) => {
+    setShowDropdown(false);
+    
+    switch (action) {
+      case 'share':
+        // Handle share chat
+        console.log('Share chat:', selectedChat.name);
+        break;
+      case 'delete':
+        // Handle delete chat
+        if (confirm(`Are you sure you want to delete the chat with ${selectedChat.name}?`)) {
+          setChats((prev) => prev.filter((chat) => chat.id !== selectedChat.id));
+          onBackToList();
+        }
+        break;
+      case 'block':
+        // Handle block client
+        console.log('Block client:', selectedChat.name);
+        break;
+      case 'report':
+        // Handle report client
+        console.log('Report client:', selectedChat.name);
+        break;
+      default:
+        break;
+    }
   };
 
   if (!selectedChat) {
@@ -64,6 +109,55 @@ export default function ChatWindow({ selectedChat, setChats, onBackToList }) {
           <p className="font-semibold text-sm sm:text-base truncate">{selectedChat.name}</p>
           <p className="text-xs sm:text-sm text-gray-500 truncate">{selectedChat.role}</p>
         </div>
+
+        {/* Three dots menu */}
+        <div className="relative" ref={dropdownRef}>
+          <button
+            onClick={() => setShowDropdown(!showDropdown)}
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+          >
+            <MoreVertical className="w-5 h-5 text-gray-600" />
+          </button>
+
+          {/* Dropdown menu */}
+          {showDropdown && (
+            <div className="absolute right-0 top-full mt-1 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+              <div className="py-1">
+                <button
+                  onClick={() => handleMenuAction('share')}
+                  className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center space-x-3"
+                >
+                  <Share className="w-4 h-4" />
+                  <span>Share Chat</span>
+                </button>
+                
+                <button
+                  onClick={() => handleMenuAction('delete')}
+                  className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center space-x-3"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  <span>Delete Chat</span>
+                </button>
+                
+                <button
+                  onClick={() => handleMenuAction('block')}
+                  className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center space-x-3"
+                >
+                  <UserX className="w-4 h-4" />
+                  <span>Block Client</span>
+                </button>
+                
+                <button
+                  onClick={() => handleMenuAction('report')}
+                  className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center space-x-3"
+                >
+                  <Flag className="w-4 h-4" />
+                  <span>Report Client</span>
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Messages */}
@@ -97,30 +191,34 @@ export default function ChatWindow({ selectedChat, setChats, onBackToList }) {
 
       {/* Input */}
       <div className="p-3 sm:p-4 border-t bg-white">
-        <div className="flex items-center space-x-2">
-          {/* Emoji and attachment buttons - hidden on very small screens */}
-          <button className="hidden xs:block p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full">
-            <Smile className="w-4 h-4 sm:w-5 sm:h-5" />
-          </button>
-          <button className="hidden xs:block p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full">
-            <Paperclip className="w-4 h-4 sm:w-5 sm:h-5" />
+        <div className="flex items-center space-x-3">
+          {/* Emoji button */}
+          <button className="w-10 h-10  rounded-full flex items-center justify-center transition-colors">
+            <FaSmile className="w-5 h-5 text-yellow-400" />
           </button>
           
+          {/* Attachment button */}
+          <button className=" rounded-full flex items-center justify-center transition-colors">
+            <Paperclip className="w-5 h-5 text-gray-500" />
+          </button>
+          
+          {/* Input field */}
           <input
             type="text"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
-            placeholder="Type a message..."
-            className="flex-1 px-3 py-2 sm:px-4 sm:py-2 text-sm sm:text-base border rounded-full focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Reply to soham here..."
+            className="flex-1 px-4 py-3 text-sm sm:text-base bg-gray-100 rounded-full focus:ring-2 focus:ring-custom-blue focus:bg-white focus:outline-none border-0 placeholder-gray-500"
           />
           
+          {/* Send button */}
           <button
             onClick={handleSendMessage}
             disabled={!newMessage.trim()}
-            className="p-2 sm:p-2 bg-custom-blue text-white rounded-full hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="w-10 h-10 bg-custom-blue text-white rounded-full hover:bg-custom-blue disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
           >
-            <Send className="w-4 h-4 sm:w-5 sm:h-5" />
+            <Send className="w-5 h-5" />
           </button>
         </div>
       </div>

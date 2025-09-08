@@ -155,7 +155,7 @@ const handleSelectAll = (e) => {
           showMobileMenu={isMobile}
         />
 
-        <div className=' sm:px-6 lg:px-8 pb-6'>
+        <div className='mobile:px-4 sm:px-6 lg:px-8 pb-6'>
           {/* Dashboard Content */}
           <div className="space-y-6 sm:space-y-8">
             <div >
@@ -164,7 +164,7 @@ const handleSelectAll = (e) => {
             </div>
 
             {/* Stats Cards - Mobile Responsive */}
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 lg:mb-8 ">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 lg:mb-8  ">
               <StatsCard 
                 title="Today's Investment" 
                 value="10" 
@@ -265,31 +265,8 @@ const handleSelectAll = (e) => {
       
     </tr>
   ))}
-  </tbody>
-   <tfoot>
-  <tr>
-    <td colSpan="6">
-      <div className="flex justify-between items-center px-6 py-4 border-t bg-blue-800/5 w-full">
-        <button
-          className="px-3 py-1 text-sm rounded border disabled:opacity-50"
-          disabled
-        >
-          Prev
-        </button>
 
-        <div className="text-sm text-gray-600">Page 1 of 1</div>
-
-        <button
-          className="px-3 py-1 text-sm rounded border disabled:opacity-50"
-          disabled
-        >
-          Next
-        </button>
-      </div>
-    </td>
-  </tr>
-</tfoot>
-
+</tbody>
 
                   </table>
                 </div>
@@ -302,6 +279,21 @@ const handleSelectAll = (e) => {
                   <ProjectCard key={project.id} project={project} />
                 ))}
               </div>
+               <div className="flex justify-between items-center px-4 py-3 border-t bg-blue-800/5">
+              <button
+                className="px-3 py-1 text-sm border rounded disabled:opacity-50"
+
+              >
+                Previous
+              </button>
+              <span className="text-sm">Page 1 of 1</span>
+              <button
+                className="px-3 py-1 text-sm border rounded disabled:opacity-50"
+              
+              >
+                Next
+              </button>
+            </div>
             </div>
           </div>
         </div>

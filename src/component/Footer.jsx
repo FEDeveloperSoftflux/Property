@@ -3,6 +3,8 @@ import logo from '../assets/logo.png';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaArrowRight } from 'react-icons/fa';
 import app from "../assets/appstore.png";
 import g from "../assets/gstoe.png";
+import ScrollToTop from './arrowup';
+import img from "../assets/navimg.png"
 
 export default function PropertyConnectFooter() {
   const [contactNumber, setContactNumber] = useState('');
@@ -19,10 +21,11 @@ export default function PropertyConnectFooter() {
   };
 
   return (
-    <footer className="py-12 px-4 relative overflow-hidden text-white bg-custom-blue">
+   <footer className="py-12 px-4 relative  text-white bg-custom-blue">
+    <div className='w-screen flex justify-center mobile:pr-4 sm:pr-0'><img src={img} className='absolute top-0 w-[900px] h-[60px]bg-cover flex justify-center'/></div>  
       <div className="flex flex-col items-center justify-center px-6 relative z-10">
         {/* Logo and Title */}
-        <img src={logo} alt="Property Connect Logo" className="w-20 md:w-24 mb-4" />
+        <img src={logo} alt="Property Connect Logo" className="w-24 md:w-24 mb-4 mt-8" />
         <h1 className="text-xl font-semibold mb-10">Property Connect</h1>
 
         {/* Header Text */}
@@ -105,6 +108,9 @@ export default function PropertyConnectFooter() {
           </div>
         </div>
       </div>
+      
     </footer>
+
+    
   );
 }

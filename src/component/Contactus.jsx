@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { ChevronRight, X, Send, MessageCircle, Facebook, Twitter, Linkedin } from 'lucide-react';
-import PropertyConnectFooter from './component/Foot';
-import Head from './head';
-import contactus from './assets/contactus.png';
+import contactus from '../assets/contactus.png';
+import PropertyConnectFooter from './Footer';
+import Head from '../Header';
 export default function FAQSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [email, setEmail] = useState('');
@@ -48,7 +48,7 @@ export default function FAQSection() {
             </h2>
           </div>
 
-          <div className="space-y-1">
+          <div className="space-y-1 ml-8">
             {faqs.map((faq, index) => (
               <div key={index} className="bg-neutral-50  hover:bg-custom-blue hover:text-white border border-gray-200 rounded-lg group">
                 <button
@@ -78,7 +78,7 @@ export default function FAQSection() {
       {/* Floating Chat Button */}
       <button
         onClick={() => setIsModalOpen(true)}
-        className="fixed bottom-8 right-8 w-14 h-14 bg-custom-blue hover:bg-blue-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group z-50"
+        className="fixed bottom-24 right-28 w-14 h-14 bg-white hover:bg-blue-700   text-custom-blue rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group z-50"
       >
       <img src={contactus} />
       </button>

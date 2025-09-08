@@ -13,7 +13,8 @@ module.exports = {
       'logo': "url('/assest/loginlogo.png')",
     },
   plugins: [],
-   screens: {
-        'custom': '1161px',
-      } }}
+     screens: {
+      'mobile': {'max': '639px'}, // <--- Add this
+
+    }, }}
     }

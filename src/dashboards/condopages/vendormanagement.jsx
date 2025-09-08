@@ -77,7 +77,7 @@ export default function Vendormanage() {
           {/* Tab buttons */}
           <div className="flex flex-col sm:flex-row justify-center mb-6 space-y-2 sm:space-y-0">
             <button
-              className={`px-4 sm:px-6 py-2 rounded-xl text-sm font-medium w-full sm:w-[500px] border border-gray-300 ${
+              className={`px-4 sm:px-6 py-2 rounded-xl w-[5000px]  text-sm font-medium  sm:w-[500px] border border-gray-300 ${
                 activeView === "vendors"
                   ? "bg-custom-blue text-white"
                   : "hover:bg-custom-blue hover:text-white bg-neutral-50 text-gray-700"

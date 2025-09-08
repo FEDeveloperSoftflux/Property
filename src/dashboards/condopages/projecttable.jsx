@@ -107,7 +107,7 @@ export default function ProjectsTable({
             <tbody className="divide-y divide-gray-100">
               {currentProjects.map((p) => (
                 <tr key={p.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-4 py-4">
+                  <td className="px-4 py-4 pl-7">
                     <input
                       type="checkbox"
                       checked={isSelected(p.id)}

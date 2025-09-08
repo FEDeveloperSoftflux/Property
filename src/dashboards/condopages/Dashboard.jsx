@@ -5,24 +5,23 @@ import {
   Users, 
   MessageSquare, 
   FileText, 
-  Settings,
   Plus,
-  Eye,
-  AlarmClock,
   MessageCircle,
-  Calendar,
   User,
   AlertTriangle,
-  Bell,
-  TruckElectric
+
 } from "lucide-react";
+import { FaFileInvoice } from "react-icons/fa";
 import logo from "../../assets/Dashlogo.png"
+import { FaTasks } from "react-icons/fa";
 import bell from "../../assets/bell.png"
 import Sidebar from "../Sidebar";
 import Header from "./Dashboardheader";
 import StatsCard from '../statscard';
 import { useEffect } from "react";
-
+import { BiSolidFile } from "react-icons/bi";
+import { AiFillMessage } from "react-icons/ai"
+import { HiBuildingOffice2 } from "react-icons/hi2";
 export default function Condo() {
   const [activeSection, setActiveSection] = useState("Dashboard");
   const [isExpanded, setIsExpanded] = useState(true);
@@ -317,14 +316,14 @@ variant="light"
             <div className="p-4 sm:p-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {recentActivityItems.map((item, index) => (
-                  <div key={index} className="border h-52 sm:h-60 rounded-lg p-4 hover:bg-blue-50 hover:shadow-md transition-shadow bg-white pt-6 sm:pt-10 hover:border hover:border-blue-600">
+                  <div key={index} className="border h-52 sm:h-60 rounded-lg p-4 hover:scale-105 hover:duration-100 hover:shadow-md transition-shadow bg-white pt-6 sm:pt-10 hover:border hover:border-blue-600">
                     <div className="flex items-center mb-3 pt-2">
                       <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center mr-3">
-                        {item.type === 'bid' && <FileText className="w-4 h-4 text-custom-blue font-bold" />}
-                        {item.type === 'status' && <AlertTriangle className="w-4 h-4 text-custom-blue" />}
-                        {item.type === 'message' && <MessageCircle className="w-4 h-4 text-custom-blue" />}
-                        {item.type === 'document' && <FileText className="w-4 h-4 text-custom-blue" />}
-                        {item.type === 'delay' && <Calendar className="w-4 h-4 text-custom-blue" />}
+                        {item.type === 'bid' && <FaFileInvoice className="w-5 h-5 text-custom-blue font-extrabold" />}
+                        {item.type === 'status' && <HiBuildingOffice2 className="w-5 h-5 text-custom-blue" />}
+                        {item.type === 'message' && <AiFillMessage className="w-5 h-5 text-custom-blue" />}
+                        {item.type === 'document' && <BiSolidFile className="w-5 h-5 text-custom-blue" />}
+                        {item.type === 'delay' && <FaTasks className="w-5 h-5 text-custom-blue" />}
                       </div>
                       <h4 className="font-bold text-gray-900 text-lg sm:text-2xl">{item.title}</h4>
                     </div>

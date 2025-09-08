@@ -84,12 +84,12 @@ const SmartVendorConnections = () => {
       </div>
 
       {/* Tips Section */}
-      <div className="max-w-3xl mx-auto p-6 mt-20">
-        <h2 className="text-3xl sm:text-5xl font-bold text-center text-gray-900 mb-10">
+      <div className="max-w-3xl mx-auto p-6 mt-20 ">
+        <h2 className="text-3xl sm:text-5xl font-bold text-center text-gray-900 mb-10 ml-7">
           Tips to Earn More
         </h2>
 
-        <div className="space-y-4">
+        <div className="space-y-4 md:ml-20 mobile:ml-0   ">
           {[
             {
               icon: <User size={20} className="text-white  group-hover:text-custom-blue" />,

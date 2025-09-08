@@ -10,22 +10,27 @@ import {
   LabelList,
 } from "recharts";
 
-// Demo Data
+// Demo Data with Month + Date + Earnings
 const initialData = [
-  { month: "Jan", value: 10, earnings: "$25,000" },
-  { month: "Feb", value: 14, earnings: "$32,000" },
-  { month: "Mar", value: 18, earnings: "$45,000" },
-  { month: "Apr", value: 16, earnings: "$28,000" },
-  { month: "May", value: 21, earnings: "$40,000" },
-  { month: "Jun", value: 25, earnings: "$50,000" },
+  { month: "Jan", date: "2025-01-15", value: 10, earnings: "$25,000" },
+  { month: "Feb", date: "2025-02-15", value: 14, earnings: "$32,000" },
+  { month: "Mar", date: "2025-03-15", value: 18, earnings: "$45,000" },
+  { month: "Apr", date: "2025-04-15", value: 16, earnings: "$28,000" },
+  { month: "May", date: "2025-05-15", value: 21, earnings: "$40,000" },
+  { month: "Jun", date: "2025-06-15", value: 25, earnings: "$50,000" },
 ];
 
-// Custom Tooltip
+// ✅ Custom Tooltip (Month + Date + Earnings)
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
+    const { month, date, earnings, value } = payload[0].payload;
+
     return (
-      <div className="bg-white mr-3 border rounded shadow text-sm">
-        <p>{`${payload[0].payload.earnings}`}</p>
+      <div className="bg-white border rounded shadow px-3 py-2 text-sm">
+        <p className="font-semibold text-gray-800">{month}</p>
+        <p className="text-gray-600">Date: {date}</p>
+        <p className="text-gray-600">Earnings: {earnings}</p>
+        <p className="text-gray-600">Projects: {value}</p>
       </div>
     );
   }
@@ -85,7 +90,7 @@ export default function Reportgraph() {
       {/* 🔹 Chart */}
       <ResponsiveContainer width="100%" height={397}>
         <LineChart data={initialData}>
-          <CartesianGrid strokeDasharray="3 3"  />
+          <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="month" />
           <YAxis />
           <Tooltip content={<CustomTooltip />} />

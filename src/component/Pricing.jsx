@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Check, X, ArrowRight, Facebook, Twitter, Linkedin } from 'lucide-react';
-import PropertyConnectFooter from './component/Foot';
+import PropertyConnectFooter from './Footer';
 
 import { useNavigate } from 'react-router-dom';
-import Head from './head';
+import Head from '../Header';
 export default function PricingPage() {
   const [email, setEmail] = useState('');
    const navigate = useNavigate();
