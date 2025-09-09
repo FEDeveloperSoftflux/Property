@@ -76,7 +76,7 @@ export default function ChatWindow({ selectedChat, setChats, onBackToList }) {
 
   if (!selectedChat) {
     return (
-      <div className="flex-1 flex items-center justify-center px-4">
+      <div className="flex-1 flex items-center justify-center px-4 ">
         <div className="text-center">
           <div className="w-12 h-12 sm:w-16 sm:h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <AiFillMessage className="w-6 h-6 sm:w-8 sm:h-8 text-custom-blue" />
@@ -91,7 +91,7 @@ export default function ChatWindow({ selectedChat, setChats, onBackToList }) {
   return (
     <div className="flex-1 flex flex-col h-full">
       {/* Header */}
-      <div className="p-3 sm:p-4 border-b flex items-center bg-white">
+      <div className="p-3 sm:p-4 border-b flex items-center bg-white ">
         {/* Back button for mobile */}
         <button
           onClick={onBackToList}
@@ -116,12 +116,12 @@ export default function ChatWindow({ selectedChat, setChats, onBackToList }) {
             onClick={() => setShowDropdown(!showDropdown)}
             className="p-2 hover:bg-gray-100 rounded-full transition-colors"
           >
-            <MoreVertical className="w-5 h-5 text-gray-600" />
+            <MoreVertical className="w-5 h-5 text-gray-600 " />
           </button>
 
           {/* Dropdown menu */}
           {showDropdown && (
-            <div className="absolute right-0 top-full mt-1 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+            <div className="absolute right-0 top-full mt-1 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50 ">
               <div className="py-1">
                 <button
                   onClick={() => handleMenuAction('share')}
@@ -161,7 +161,7 @@ export default function ChatWindow({ selectedChat, setChats, onBackToList }) {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 p-3 sm:p-4 overflow-y-auto space-y-3 sm:space-y-4 bg-gray-50">
+      <div className="flex-1 p-3 sm:p-4 overflow-y-auto space-y-3 sm:space-y-4 bg-gray-50  " >
         {selectedChat.messages.length === 0 ? (
           <div className="flex items-center justify-center h-full">
             <p className="text-gray-500 text-sm sm:text-base">No messages yet. Start a conversation!</p>
@@ -173,7 +173,7 @@ export default function ChatWindow({ selectedChat, setChats, onBackToList }) {
               className={`flex ${msg.isMine ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`px-3 py-2 sm:px-4 sm:py-2 rounded-2xl max-w-[280px] sm:max-w-xs md:max-w-sm ${
+                className={`px-3 py-2 sm:px-4 sm:py-2 rounded-2xl mobile:w-[150px] sm:max-w-xs md:max-w-sm mobile:mr-6 sm:mr-0  ${
                   msg.isMine
                     ? "bg-custom-blue text-white"
                     : "bg-white text-gray-900 border"
@@ -190,8 +190,8 @@ export default function ChatWindow({ selectedChat, setChats, onBackToList }) {
       </div>
 
       {/* Input */}
-      <div className="p-3 sm:p-4 border-t bg-white">
-        <div className="flex items-center space-x-3">
+      <div className="p-3 sm:p-4 border-t bg-white  sm:mr-0 sm:pr-0">
+        <div className="flex items-center mobile:space-x-1 sm:space-x-3">
           {/* Emoji button */}
           <button className="w-10 h-10  rounded-full flex items-center justify-center transition-colors">
             <FaSmile className="w-5 h-5 text-yellow-400" />

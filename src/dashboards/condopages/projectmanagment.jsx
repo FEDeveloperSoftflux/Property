@@ -33,6 +33,8 @@ export default function ProjectManagementDashboard() {
     vendor: "",
     priority: "",
     status: "",
+    startDate: "",
+    endDate: "",
   });
 
   // Sample Projects Data
@@ -43,8 +45,10 @@ export default function ProjectManagementDashboard() {
       type: "Maintenance",
       company: "Tower A",
       vendor: "Cool Air Services",
-      priority: "High",
+      priority: "Urgent",
       status: "Complete",
+      startDate: "2024-06-01",
+      endDate: "2025-01-15",
       timeline: "Jun 01, 2024 - Jan 15, 2025",
       cost: "$12,500",
     },
@@ -54,8 +58,10 @@ export default function ProjectManagementDashboard() {
       type: "Repair",
       company: "Tower A",
       vendor: "Lift Solutions Inc.",
-      priority: "Medium",
+      priority: "Normal",
       status: "On Going",
+      startDate: "2024-06-01",
+      endDate: "2025-01-15",
       timeline: "Jun 01, 2024 - Jan 15, 2025",
       cost: "$8,700",
     },
@@ -67,12 +73,13 @@ export default function ProjectManagementDashboard() {
       vendor: "Modern Interiors",
       priority: "Urgent",
       status: "Due Date",
+      startDate: "2024-06-01",
+      endDate: "2025-01-15",
       timeline: "Jun 01, 2024 - Jan 15, 2025",
       cost: "$6,700",
     },
   ]);
 
-  // Responsive Sidebar
   useEffect(() => {
     const handleResize = () => {
       const mobile = window.innerWidth < 1024;
@@ -84,36 +91,50 @@ export default function ProjectManagementDashboard() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Filters + Search
+  // Helpers
   const getUniqueValues = (key) => [...new Set(projects.map((p) => p[key]))];
 
+  // Filtered Projects Logic
   const filteredProjects = projects.filter((p) => {
     const matchesSearch =
       p.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
       p.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       p.vendor.toLowerCase().includes(searchTerm.toLowerCase());
+
     const matchesCompany = !filters.company || p.company === filters.company;
     const matchesVendor = !filters.vendor || p.vendor === filters.vendor;
     const matchesPriority = !filters.priority || p.priority === filters.priority;
     const matchesStatus = !filters.status || p.status === filters.status;
+
+    const matchesStartDate = !filters.startDate || new Date(p.startDate) >= new Date(filters.startDate);
+    const matchesEndDate = !filters.endDate || new Date(p.endDate) <= new Date(filters.endDate);
+
     return (
       matchesSearch &&
       matchesCompany &&
       matchesVendor &&
       matchesPriority &&
-      matchesStatus
+      matchesStatus &&
+      matchesStartDate &&
+      matchesEndDate
     );
   });
 
   const clearAllFilters = () => {
-    setFilters({ company: "", vendor: "", priority: "", status: "" });
+    setFilters({
+      company: "",
+      vendor: "",
+      priority: "",
+      status: "",
+      startDate: "",
+      endDate: "",
+    });
     setSearchTerm("");
   };
 
   const activeFiltersCount =
     Object.values(filters).filter(Boolean).length + (searchTerm ? 1 : 0);
 
-  // Stats
   const stats = {
     total: filteredProjects.length,
     urgent: filteredProjects.filter((p) => p.priority === "Urgent").length,
@@ -138,7 +159,7 @@ export default function ProjectManagementDashboard() {
       High: "bg-orange-100 text-orange-800 border-orange-200",
       Medium: "bg-blue-100 text-blue-800 border-blue-200",
       Urgent: "bg-red-100 text-red-800 border-red-200",
-      Low: "bg-gray-100 text-gray-800 border-gray-200",
+      Normal: "bg-gray-100 text-gray-800 border-gray-200",
     };
     return map[priority] || "bg-gray-100 text-gray-800 border-gray-200";
   };
@@ -151,10 +172,8 @@ export default function ProjectManagementDashboard() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Sidebar */}
       <Sidebar isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
 
-      {/* Main Content */}
       <div
         className={`transition-all duration-300 min-h-screen ${
           isExpanded && !isMobile
@@ -164,7 +183,6 @@ export default function ProjectManagementDashboard() {
             : "ml-16 sm:ml-20"
         }`}
       >
-        {/* Header */}
         <Header
           title="Project Management"
           onMobileMenuToggle={() => setIsExpanded(true)}
@@ -172,7 +190,6 @@ export default function ProjectManagementDashboard() {
         />
 
         <div className="p-4 lg:p-6">
-          {/* Page Title */}
           <div className="mb-6 flex items-center justify-between">
             <div>
               <h2 className="text-xl lg:text-2xl font-bold text-gray-900 mb-2">
@@ -190,27 +207,14 @@ export default function ProjectManagementDashboard() {
             </button>
           </div>
 
-          {/* Stats */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             <StatsCard title="Total Projects" value={stats.total} icon={Archive} />
-            <StatsCard
-              title="Urgent Priority"
-              value={stats.urgent}
-              icon={AlertTriangle}
-            />
-            <StatsCard
-              title="In Progress"
-              value={stats.inProgress}
-              icon={Clock}
-            />
-            <StatsCard
-              title="Overdue"
-              value={stats.overdue}
-              icon={CheckCircle}
-            />
+            <StatsCard title="Urgent Priority" value={stats.urgent} icon={AlertTriangle} />
+            <StatsCard title="In Progress" value={stats.inProgress} icon={Clock} />
+            <StatsCard title="Overdue" value={stats.overdue} icon={CheckCircle} />
           </div>
 
-          {/* Mobile Filter Toggle */}
+          {/* Filter Toggle for Mobile */}
           <div className="lg:hidden mb-4">
             <button
               onClick={() => setShowFilters(!showFilters)}
@@ -218,20 +222,12 @@ export default function ProjectManagementDashboard() {
             >
               <Filter className="w-4 h-4 mr-2" />
               {showFilters ? "Hide Filters" : "Show Filters"}
-              <ChevronDown
-                className={`w-4 h-4 ml-2 transition-transform ${
-                  showFilters ? "rotate-180" : ""
-                }`}
-              />
+              <ChevronDown className={`w-4 h-4 ml-2 transition-transform ${showFilters ? "rotate-180" : ""}`} />
             </button>
           </div>
 
-          {/* Filters + Search */}
-          <div
-            className={`${
-              showFilters || !isMobile ? "block" : "hidden"
-            } lg:block mb-6`}
-          >
+          {/* Filters */}
+          <div className={`${showFilters || !isMobile ? "block" : "hidden"} lg:block mb-6`}>
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
               <div className="flex flex-col sm:flex-row gap-4 flex-1">
                 {/* Search */}
@@ -246,42 +242,72 @@ export default function ProjectManagementDashboard() {
                   />
                 </div>
 
-                {/* Company Filter */}
+                {/* Company (Building) */}
                 <select
                   value={filters.company}
-                  onChange={(e) =>
-                    setFilters((f) => ({ ...f, company: e.target.value }))
-                  }
+                  onChange={(e) => setFilters((f) => ({ ...f, company: e.target.value }))}
                   className="bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-600"
                 >
-                  <option value="">All Companies</option>
+                  <option value="">All Building</option>
                   {getUniqueValues("company").map((c) => (
                     <option key={c}>{c}</option>
                   ))}
                 </select>
 
-                {/* Vendor Filter */}
+                {/* Vendor */}
                 <select
                   value={filters.vendor}
-                  onChange={(e) =>
-                    setFilters((f) => ({ ...f, vendor: e.target.value }))
-                  }
+                  onChange={(e) => setFilters((f) => ({ ...f, vendor: e.target.value }))}
                   className="bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-600"
                 >
-                  <option value="">All Vendors</option>
+                  <option value="">All Vendor</option>
                   {getUniqueValues("vendor").map((v) => (
                     <option key={v}>{v}</option>
                   ))}
                 </select>
               </div>
 
-              {/* Export Buttons */}
-              <div className="flex flex-col sm:flex-row gap-2">
-                <button className="flex items-center justify-center bg-white px-4 py-3 text-sm text-gray-600 border border-gray-200 rounded-xl hover:bg-gray-50">
+              <div className="flex flex-col sm:flex-row gap-4">
+                {/* Priority */}
+                <select
+                  value={filters.priority}
+                  onChange={(e) => setFilters((f) => ({ ...f, priority: e.target.value }))}
+                  className="bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-600"
+                >
+                  <option value="">All Priority</option>
+                  <option value="Urgent">Urgent</option>
+                  <option value="Normal">Normal</option>
+                </select>
+
+                {/* Status */}
+                <select
+                  value={filters.status}
+                  onChange={(e) => setFilters((f) => ({ ...f, status: e.target.value }))}
+                  className="bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-600"
+                >
+                  <option value="">All Status</option>
+                  <option value="Complete">Complete</option>
+                  <option value="On Going">On Going</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Due Date">Due Date</option>
+                </select>
+
+                {/* Start Date */}
+                <input
+                  type="date"
+                  value={filters.startDate}
+                  onChange={(e) => setFilters((f) => ({ ...f, startDate: e.target.value }))}
+                  className="bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-600"
+                />
+              </div>
+
+              {/* Export + Clear Filters */}
+              <div className="flex flex-wrap gap-2 mt-4 lg:mt-0">
+                <button className="bg-white px-4 py-2 text-sm border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50 flex items-center">
                   <Download className="w-4 h-4 mr-2" />
                   Export CSV
                 </button>
-                <button className="flex items-center justify-center bg-white px-4 py-3 text-sm text-gray-600 border border-gray-200 rounded-xl hover:bg-gray-50">
+                <button className="bg-white px-4 py-2 text-sm border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50 flex items-center">
                   <Download className="w-4 h-4 mr-2" />
                   Export PDF
                 </button>
@@ -297,15 +323,16 @@ export default function ProjectManagementDashboard() {
               </div>
             </div>
           </div>
-<ProjectsTable
+
+          {/* Table */}
+          <ProjectsTable
             filteredProjects={filteredProjects}
             getPriorityBadge={getPriorityBadge}
             getStatusBadge={getStatusBadge}
             handleDeleteProject={handleDeleteProject}
           />
         </div>
-        </div>
- 
+      </div>
 
       {/* Create Modal */}
       <CreateProjectModal
@@ -314,6 +341,5 @@ export default function ProjectManagementDashboard() {
         onSave={(newProject) => setProjects((prev) => [newProject, ...prev])}
       />
     </div>
-  
   );
 }

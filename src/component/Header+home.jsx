@@ -47,7 +47,7 @@ useEffect(() => {
       <div className="relative min-h-screen overflow-hidden">
         {/*   Home section    */}
         <div className="absolute inset-0">
-          <img src={img} alt="Background" className="w-full h-full object-cover"  loading="lazy"/>
+          <img src={img} alt="Background" className="w-full h-full object-cover"  loading=""/>
         </div>
 
         {/* Navbar - untouched */}

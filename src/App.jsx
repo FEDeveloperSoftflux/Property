@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Landingpage from "./landingpage";
+import Landingpage from "./Landingpage";
 import Login from "./component/Login";
 import Forgetpassword from "./component/forgetpassword";
 import OtpVerification from "./component/otpverifaction"; // fixed name
@@ -18,6 +18,9 @@ import NotificationsPage from "./dashboards/condopages/AllNotification";
 import Messages from "./MESSAGE/Messages";
 import ScrollToTop from "./component/arrowup";
 import FAQSection from "./component/Contactus";
+import DashboardActivityLog from "./dashboards/condopages/Viewdetails/Activitylog";
+import RecentActivity from "./dashboards/condopages/DashboardComponents/RecentActivity";
+import RecentRequest from "./dashboards/condopages/Viewdetails/RecentRequest";
 const App = () => {
   return (
     <>
@@ -38,6 +41,9 @@ const App = () => {
       <Route path="/setting" element={<Setting/>}/>
       <Route path="/all notification" element={<NotificationsPage/> }/>
       <Route path="/message" element={<Messages/>}/>
+    <Route path="/Activity log" element={<DashboardActivityLog/>}/>
+    <Route path="/Recent request" element={<RecentRequest/>}/>
+  
     </Routes>
 
     <ScrollToTop/>

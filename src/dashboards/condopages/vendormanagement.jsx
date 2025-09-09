@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Search, ChevronDown, User, MapPin, Star, MessageCircle } from "lucide-react";
+import {
+  Search,
+  ChevronDown,
+  Filter,
+} from "lucide-react";
 import Sidebar from "../Sidebar";
 import Header from "./Dashboardheader";
 import SearchView from "../../VendorManagement/SearchVeiw";
@@ -10,6 +14,7 @@ export default function Vendormanage() {
   const [isExpanded, setIsExpanded] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [isMobile, setIsMobile] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
 
   const vendors = [
     {
@@ -74,32 +79,54 @@ export default function Vendormanage() {
             Manage your vendor treatment list and discover new service providers.
           </p>
 
-          {/* Tab buttons */}
-          <div className="flex flex-col sm:flex-row justify-center mb-6 space-y-2 sm:space-y-0">
+          {/* 🔹 Tab Buttons */}
+         <div className="flex flex-col sm:flex-row justify-center mb-6 space-y-2 sm:space-y-0 ">
+  <button
+    className={`px-4 sm:px-6 py-2 rounded-xl text-sm font-medium border border-gray-300 flex-1 ${
+      activeView === "vendors"
+        ? "bg-custom-blue text-white"
+        : "hover:bg-custom-blue hover:text-white bg-neutral-50 text-gray-700"
+    }`}
+    onClick={() => setActiveView("vendors")}
+  >
+    Your Linked List
+  </button>
+  <button
+    className={`px-4 sm:px-6 py-2 rounded-xl text-sm font-medium border border-gray-300 flex-1 ${
+      activeView === "search"
+        ? "bg-custom-blue text-white"
+        : "hover:bg-custom-blue hover:text-white bg-neutral-50 text-gray-700"
+    }`}
+    onClick={() => setActiveView("search")}
+  >
+    Search New Vendor
+  </button>
+</div>
+
+
+          {/* 🔹 Mobile Filter Toggle Button */}
+          <div className="lg:hidden mb-4 w-screen flex justify-center">
             <button
-              className={`px-4 sm:px-6 py-2 rounded-xl w-[5000px]  text-sm font-medium  sm:w-[500px] border border-gray-300 ${
-                activeView === "vendors"
-                  ? "bg-custom-blue text-white"
-                  : "hover:bg-custom-blue hover:text-white bg-neutral-50 text-gray-700"
-              }`}
-              onClick={() => setActiveView("vendors")}
+              onClick={() => setShowFilters(!showFilters)}
+              className="flex  items-center px-4 py-2 text-sm text-gray-700 border border-gray-300 rounded-xl bg-white hover:bg-gray-100 transition"
             >
-              Your Linked List
-            </button>
-            <button
-              className={`px-4 sm:px-6 py-2 rounded-xl text-sm font-medium w-full sm:w-[500px] border border-gray-300 ${
-                activeView === "search"
-                  ? "bg-custom-blue text-white"
-                  : "hover:bg-custom-blue hover:text-white bg-neutral-50 text-gray-700"
-              }`}
-              onClick={() => setActiveView("search")}
-            >
-              Search New Vendor
+              <Filter className="w-4 h-4 mr-2" />
+              {showFilters ? "Hide Filters" : "Show Filters"}
+              <ChevronDown
+                className={`w-4 h-4 ml-2 transition-transform ${
+                  showFilters ? "rotate-180" : ""
+                }`}
+              />
             </button>
           </div>
 
-          {/* Search input */}
-          <div className="flex flex-col space-y-3 sm:space-y-0 sm:flex-row sm:space-x-4 mb-6">
+          {/* 🔹 Search & Filters */}
+          <div
+            className={`flex flex-col transition-all duration-300 ease-in-out space-y-3 sm:space-y-0 sm:flex-row sm:space-x-4 mb-6 ${
+              showFilters ? "block" : "hidden"
+            } lg:flex`}
+          >
+            {/* Search Input */}
             <div className="flex-1 relative">
               <Search className="w-4 h-4 absolute left-3 top-3 text-gray-400" />
               <input
@@ -112,7 +139,7 @@ export default function Vendormanage() {
             </div>
 
             {/* Filters */}
-            <div className="flex flex-col space-y-3 sm:space-y-0 sm:flex-row sm:space-x-4">
+            <div className="flex flex-col space-y-3 sm:space-y-0 sm:flex-row sm:space-x-4 w-full sm:w-auto">
               <div className="relative w-full sm:w-auto">
                 <select className="appearance-none bg-gray-50 border border-gray-200 rounded-2xl px-4 py-3 pr-10 text-sm text-gray-600 w-full sm:w-auto">
                   <option>Location</option>
@@ -144,7 +171,7 @@ export default function Vendormanage() {
             </div>
           </div>
 
-          {/* Conditional view */}
+          {/* 🔹 Vendor Content */}
           {activeView === "vendors" ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {vendors.map((vendor) => (

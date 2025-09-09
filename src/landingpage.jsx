@@ -9,8 +9,6 @@ const Landingpage= () => {
     <Header/>
  <SmartVendorConnections/>
     <PropertyConnectFooter/>
-    <ScrollToTop/>
-
     </>
   )
 }
