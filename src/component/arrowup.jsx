@@ -28,7 +28,7 @@ export default function ScrollToTopButton() {
           onClick={scrollToTop}
           className="fixed bottom-24 right-6 z-50 p-3 rounded-full bg-neutral-50 text-custom-blue shadow-lg hover:scale-105 transition duration-300"
         >
-          <TbArrowBigUpLineFilled className="w-8 h-8" />
+          <TbArrowBigUpLineFilled className="w-[21px] h-[21px]" />
         </button>
       )}
     </>

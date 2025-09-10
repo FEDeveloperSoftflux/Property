@@ -10,7 +10,7 @@ import {
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
-import Sidebar from '../../Sidebar';
+import Sidebar from '../Sidebar';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Dashboardheader';
 import { FaArrowLeftLong } from "react-icons/fa6";
@@ -20,7 +20,7 @@ const RecentRequest = () => {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 10;
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
 
   // Example data (replace with API data)

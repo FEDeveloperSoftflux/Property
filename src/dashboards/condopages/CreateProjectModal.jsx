@@ -90,7 +90,7 @@ export default function CreateProjectModal({ isOpen, onClose, onSave }) {
     {/* Header */}
         {/* Modal Header */}
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-xl font-semibold text-gray-800">Create New Project</h3>
+          <h3 className="text-xl font-semibold  text-gray-800">Create New Project</h3>
           <button 
             onClick={handleClose}
             className="p-2 hover:bg-gray-100 rounded-lg"
@@ -252,7 +252,7 @@ export default function CreateProjectModal({ isOpen, onClose, onSave }) {
                 </div>
                 <div>
                   <label className="cursor-pointer">
-                    <span className="text-custom-blue font-medium hover:text-blue-700">Upload location images</span>
+                    <span className="text-custom-blue font-medium hover:scale-110">Upload location images</span>
                     <input
                       type="file"
                       multiple
@@ -284,13 +284,13 @@ export default function CreateProjectModal({ isOpen, onClose, onSave }) {
         <div className="flex justify-end gap-4 mt-8 pt-6 border-t border-gray-200">
           <button
             onClick={handleClose}
-            className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            className="px-4 py-2 text-gray-600 border hover:scale-110 border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
           >
             Save as Draft
           </button>
           <button
             onClick={handleSave}
-            className="px-4 py-2 bg-custom-blue text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-4 py-2 bg-custom-blue text-white rounded-lg hover:scale-110 transition-colors"
           >
             Next
           </button>

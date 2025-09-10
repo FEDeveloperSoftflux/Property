@@ -64,8 +64,8 @@ export default function FAQSection() {
                 </button>
                 {expandedFAQ === index && (
                   <div className="px-6 pb-6">
-                    <p className="text-gray-600">
-                      This is a sample answer for "{faq}". You can replace this with the actual FAQ content for each question.
+                    <p className="hover:text-white  ">
+                      This is a sample answer for "{faq}".
                     </p>
                   </div>
                 )}
@@ -78,7 +78,7 @@ export default function FAQSection() {
       {/* Floating Chat Button */}
       <button
         onClick={() => setIsModalOpen(true)}
-        className="fixed bottom-24 right-28 w-14 h-14 bg-white hover:bg-blue-700   text-custom-blue rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group z-50"
+        className="fixed bottom-40 right-6 w-14 h-14  hover:bg-blue-700   text-custom-blue rounded-full shadow-2xl hover:shadow-xl transition-all duration-300 flex items-center justify-center group z-50"
       >
       <img src={contactus} />
       </button>

@@ -11,7 +11,7 @@ import {
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
-import Sidebar from '../../Sidebar';
+import Sidebar from '../Sidebar';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Header from '../Dashboardheader';
 import { useEffect } from 'react';
@@ -219,13 +219,13 @@ const DashboardActivityLog = () => {
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Date / Time
                     </th>
-                    <th className="px-64 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-44 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Building Details
                     </th>
-                    <th className="px-64 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-44 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Project Status
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-20 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Description
                     </th>
                   </div>
@@ -237,15 +237,15 @@ const DashboardActivityLog = () => {
                         <div className="text-sm font-medium text-gray-900">{activity.date}</div>
                         <div className="text-sm text-gray-500">{activity.time}</div>
                       </td>
-                      <td className="px-[250px] py-4 whitespace-nowrap">
+                      <td className="px-[176px] py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-900">{activity.building}</div>
                       </td>
-                      <td className="px-[250px] py-4 whitespace-nowrap">
+                      <td className="px-[150px] py-4 whitespace-nowrap">
                         <span className={`inline-flex px-3 py-1 text-xs font-medium rounded-full ${activity.statusColor}`}>
                           {activity.status}
                         </span>
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-[120px] py-4">
                         <div className="text-sm text-gray-600 max-w-xs truncate">
                           {activity.description}
                         </div>

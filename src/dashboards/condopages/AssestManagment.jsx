@@ -5,7 +5,7 @@ import {
   ChevronDown, Download, QrCode, Edit, Trash2, Check, Menu
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "../Sidebar";
+import Sidebar from "./Sidebar";
 import AssetManagementModal from "./AddNewAssetModal";
 import AssetPreviewModal from "./PreviewAsset";
 import Header from "./Dashboardheader";
@@ -144,7 +144,7 @@ export default function AssetsManagement() {
             </div>
             <button 
               onClick={() => setIsModalOpen(true)}  
-              className="flex items-center justify-center px-4 lg:px-6 py-3 text-sm font-semibold text-white bg-custom-blue rounded-lg hover:bg-blue-900 transition-colors w-full sm:w-auto">
+              className="flex items-center justify-center px-4 lg:px-6 py-3 text-sm font-semibold text-white bg-custom-blue rounded-lg hover:scale-110 transition-colors w-full sm:w-auto">
               <Plus className="w-4 h-4 mr-2" />
               Add New Asset
             </button>

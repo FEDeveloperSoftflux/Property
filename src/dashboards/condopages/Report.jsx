@@ -18,7 +18,7 @@ import {
   CheckCircle,
   Check
 } from 'lucide-react';
-import Sidebar from '../Sidebar';
+import Sidebar from '../condopages/Sidebar';
 import Header from './Dashboardheader';
 import StatsCard from '../statscard';
 import { DollarSign} from "lucide-react";

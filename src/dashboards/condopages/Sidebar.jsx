@@ -6,7 +6,7 @@ import {
   Menu
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import nlogo from "../assets/loginlogo.png";
+import nlogo from "../../assets/loginlogo.png";
 import { RiHome6Fill } from "react-icons/ri";
 import { HiBuildingOffice2 } from "react-icons/hi2";
 import { BsBagCheckFill } from "react-icons/bs";
@@ -179,8 +179,8 @@ export default function Sidebar({ isExpanded, setIsExpanded }) {
             {!isExpanded && (
               <span
                 className="
-                  absolute left-full ml-2 px-3 py-2 rounded-lg 
-                  bg-gray-600 text-white text-sm whitespace-nowrap 
+                  absolute left-full ml-2 px-3 py-2 
+                 text-[13px] sm:text-base font-medium truncate text-white text-sm whitespace-nowrap 
                   opacity-0 group-hover:opacity-100 
                   transition-opacity duration-200 z-50
                   pointer-events-none

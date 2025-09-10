@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "../Sidebar";
+import Sidebar from "../condopages/Sidebar";
 import Header from "./Dashboardheader";
-import SettingsTabs from "../../dashboards/condopages/setting pages/SettingTabs";
-import SettingsContent from "../../dashboards/condopages/setting pages/SettingContents";
+import SettingsTabs from "./setting pages/SettingTabs";
+import SettingsContent from "./setting pages/SettingContents";
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState("profile");

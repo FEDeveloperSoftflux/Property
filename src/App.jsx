@@ -10,7 +10,7 @@ import PricingPage from "./component/Pricing";
 import ResetPassword from "./component/resetpassword";
 
 import About from "./component/About";
-import ProjectManagementDashboard from "./dashboards/condopages/projectmanagment";
+import ProjectManagementDashboard from "./dashboards/condopages/Projectmanagment";
 import Vendormanage from "./dashboards/condopages/vendormanagement";
 import Report from "./dashboards/condopages/Report";
 import Setting from "./dashboards/condopages/setting";
@@ -19,8 +19,8 @@ import Messages from "./MESSAGE/Messages";
 import ScrollToTop from "./component/arrowup";
 import FAQSection from "./component/Contactus";
 import DashboardActivityLog from "./dashboards/condopages/Viewdetails/Activitylog";
-import RecentActivity from "./dashboards/condopages/DashboardComponents/RecentActivity";
 import RecentRequest from "./dashboards/condopages/Viewdetails/RecentRequest";
+import RecentActivit from "./dashboards/condopages/Viewdetails/RecentActivity";
 const App = () => {
   return (
     <>
@@ -43,7 +43,7 @@ const App = () => {
       <Route path="/message" element={<Messages/>}/>
     <Route path="/Activity log" element={<DashboardActivityLog/>}/>
     <Route path="/Recent request" element={<RecentRequest/>}/>
-  
+  <Route path="Recent Activity" element={<RecentActivit/>}/>
     </Routes>
 
     <ScrollToTop/>

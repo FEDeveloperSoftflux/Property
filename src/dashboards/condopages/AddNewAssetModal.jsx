@@ -189,13 +189,13 @@ export default function AssetManagementModal({ onClose, onSubmit }) {
         <div className="flex lg:justify-end space-x-3 p-6 border-t border-gray-200 bg-gray-50 sm:flex sm:justify-center">
           <button
             onClick={onClose}
-            className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 font-medium"
+            className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 hover:scale-110 font-medium"
           >
             Go Back
           </button>
           <button
             onClick={handleSubmit}
-            className="px-6 py-2 bg-custom-blue text-white rounded-md hover:bg-blue-700 font-medium"
+            className="px-6 py-2 bg-custom-blue text-white rounded-md hover:scale-110 font-medium"
           >
             Next
           </button>

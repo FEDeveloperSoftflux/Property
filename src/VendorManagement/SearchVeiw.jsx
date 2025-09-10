@@ -58,8 +58,8 @@ export default function SearchView({ searchTerm }) {
   );
 
   return (
-    <div className="flex-1 bg-white overflow-auto">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+    <div className="flex-1 bg-white overflow-auto gap-y-3">
+      <div className="flex flex-col">
         {filteredVendors.map((vendor) => (
           <VendorCard key={vendor.id} vendor={vendor} />
         ))}

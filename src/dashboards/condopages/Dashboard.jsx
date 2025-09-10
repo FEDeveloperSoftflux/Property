@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Home, FolderOpen, Users, MessageSquare, FileText, Plus, AlertTriangle, MessageCircle, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "../Sidebar";
+
 import Header from "./Dashboardheader";
 import StatsCard from "../statscard";
 import logo from "../../assets/Dashlogo.png";
@@ -10,6 +10,8 @@ import logo from "../../assets/Dashlogo.png";
 import ActivityLog from "./DashboardComponents/ActivityLog";
 import RecentRequests from "./DashboardComponents/RecentRequests";
 import RecentActivity from "./DashboardComponents/RecentActivity";
+import CreateProjectModal from "./CreateProjectModal";
+import Sidebar from "./Sidebar";
 
 export default function Condo() {
   const [isExpanded, setIsExpanded] = useState(true);
@@ -50,7 +52,7 @@ export default function Condo() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
+const [showCreateModal, setShowCreateModal] = useState(false);
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Sidebar */}
@@ -73,7 +75,7 @@ export default function Condo() {
               <button className="px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-custom-blue hover:text-white hover:scale-110 transition-all whitespace-nowrap">CO Repository</button>
               <button className="px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-custom-blue hover:text-white hover:scale-110 transition-all whitespace-nowrap">Uploading Assets</button>
               <button className="px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-custom-blue hover:text-white hover:scale-110 transition-all whitespace-nowrap">Vendor Network</button>
-              <button className="px-3 py-2 bg-custom-blue hover:scale-110 text-white rounded-lg flex items-center text-sm transition-all whitespace-nowrap">
+              <button className="px-3 py-2 bg-custom-blue hover:scale-110 text-white rounded-lg flex items-center text-sm transition-all whitespace-nowrap"    onClick={() => setShowCreateModal(true)}>
                 <Plus className="w-4 h-4 mr-2" />
                 Add New Project
               </button>
@@ -91,6 +93,11 @@ export default function Condo() {
           <ActivityLog activityData={activityData} navigate={navigate} />
           <RecentRequests recentRequests={recentRequests} logo={logo} />
           <RecentActivity recentActivityItems={recentActivityItems} />
+           <CreateProjectModal
+                  isOpen={showCreateModal}
+                  onClose={() => setShowCreateModal(false)}
+                  onSave={(newProject) => setProjects((prev) => [newProject, ...prev])}
+                />
         </div>
       </div>
     </div>

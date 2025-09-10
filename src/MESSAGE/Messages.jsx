@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "../dashboards/Sidebar";
+import Sidebar from "../dashboards/condopages/Sidebar";
 import Header from "../dashboards/condopages/Dashboardheader";
 import ChatList from "./Chatlist";
 import ChatWindow from "./ChatWindow";

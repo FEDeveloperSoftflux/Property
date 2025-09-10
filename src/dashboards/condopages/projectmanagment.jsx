@@ -14,10 +14,10 @@ import {
   ChevronDown,
 } from "lucide-react";
 
-import Sidebar from "../Sidebar";
-import Header from "../condopages/Dashboardheader";
+import Sidebar from "./Sidebar";
+import Header from "./Dashboardheader";
 import StatsCard from "../statscard";
-import CreateProjectModal from "../condopages/CreateProjectModal";
+import CreateProjectModal from "./CreateProjectModal";
 import ProjectsTable from "./projecttable";
 
 export default function ProjectManagementDashboard() {
@@ -201,7 +201,7 @@ export default function ProjectManagementDashboard() {
             </div>
             <button
               onClick={() => setShowCreateModal(true)}
-              className="bg-custom-blue text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              className="bg-custom-blue text-white px-4 py-2 rounded-lg hover:scale-110 transition-colors"
             >
               Create New Project
             </button>

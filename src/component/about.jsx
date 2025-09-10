@@ -4,7 +4,7 @@ import PropertyConnectFooter from './Footer'
 
 const About = () => {
   return (
-     <div className="min-h-screen bg-gray-50">
+     <div className=" bg-white">
       <Topheader/>
            <section className="relative z-10 bg-white pt-28 pb-28">
         <div className="max-w-7xl  mx-auto px-6 md:px-12">

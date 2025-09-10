@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { CheckCircle, Trash2, Bell } from "lucide-react";
 import Header from "./Dashboardheader";
-import Sidebar from "../Sidebar";
+import Sidebar from "../condopages/Sidebar";
 import { BsBellFill } from "react-icons/bs";
 export default function NotificationsPage() {
   const [notifications, setNotifications] = useState([]);

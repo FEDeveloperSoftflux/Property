@@ -4,7 +4,7 @@ import {
   ChevronDown,
   Filter,
 } from "lucide-react";
-import Sidebar from "../Sidebar";
+import Sidebar from "./Sidebar";
 import Header from "./Dashboardheader";
 import SearchView from "../../VendorManagement/SearchVeiw";
 import VendorCard from "../../VendorManagement/VendorCard";
@@ -22,7 +22,7 @@ export default function Vendormanage() {
       name: "Profix Plumbing",
       price: "75.00",
       rating: 4.5,
-      reviewCount: 45,
+      reviewCount: "4/5",
       address: "123 Main Street, New York, Downtown",
       description:
         "Experienced plumbing company with 15+ years in commercial and residential services.",
@@ -34,7 +34,29 @@ export default function Vendormanage() {
       name: "Bright Cleaners",
       price: "60.00",
       rating: 4.2,
-      reviewCount: 28,
+      reviewCount: "2/8",
+      address: "88 Broadway, New York, Manhattan",
+      description: "Reliable cleaning services for residential and office spaces.",
+      services: ["Cleaning", "Disinfection", "Office Cleaning"],
+      verified: true,
+    },
+        {
+      id: 3,
+      name: "Bright Cleaners",
+      price: "60.00",
+      rating: 4.2,
+      reviewCount: "2/8",
+      address: "88 Broadway, New York, Manhattan",
+      description: "Reliable cleaning services for residential and office spaces.",
+      services: ["Cleaning", "Disinfection", "Office Cleaning"],
+      verified: true,
+    },
+        {
+      id: 4,
+      name: "Bright Cleaners",
+      price: "60.00",
+      rating: 4.2,
+      reviewCount: "2/8",
       address: "88 Broadway, New York, Manhattan",
       description: "Reliable cleaning services for residential and office spaces.",
       services: ["Cleaning", "Disinfection", "Office Cleaning"],
@@ -173,7 +195,7 @@ export default function Vendormanage() {
 
           {/* 🔹 Vendor Content */}
           {activeView === "vendors" ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            <div className="flex flex-col">
               {vendors.map((vendor) => (
                 <VendorCard key={vendor.id} vendor={vendor} />
               ))}

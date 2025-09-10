@@ -83,9 +83,9 @@ function Topheader() {
                 </div>
               )}
               </header>
-     <div className="flex absolute bottom-40 left-14">
+     <div className="flex absolute bottom-40 md:left-14 sm:left-4 mobile:left-3 ">
    <div className="justify-start"><span className="text-white md:text-9xl mobile:text-5xl sm:text-8xl font-extrabold sm:6xl ">About<br/></span><span className="text-white mobile:text-5xl md:text-9xl sm:text-8xl italic font-extraligh ">Us</span></div>
-    <img src={logo} alt="Logo" className="sm:w-[200px] sm:h-[120px] object-contain mobile:w-[100px] mobile:h-[80px]" />
+    <img src={logo} alt="Logo" className="sm:w-[200px] sm:h-[120px] object-contain mobile:w-[80px] mobile:h-[80px]" />
     </div>
       
         </div>
